@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Projects | Brilliaris Sentinel</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=IBM+Plex+Sans:wght@500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fb;
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
+        }
+        .project-card:hover .action-button {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .glass-effect {
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed-variant": "#3f465c",
+                        "on-secondary-container": "#fefcff",
+                        "outline-variant": "#c6c6cd",
+                        "outline": "#76777d",
+                        "tertiary-fixed": "#d3e4fe",
+                        "on-surface-variant": "#45464d",
+                        "error-container": "#ffdad6",
+                        "surface-container-highest": "#e0e3e5",
+                        "primary": "#000000",
+                        "surface-dim": "#d8dadc",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed-variant": "#004395",
+                        "surface-tint": "#565e74",
+                        "on-tertiary-container": "#75859d",
+                        "primary-fixed-dim": "#bec6e0",
+                        "inverse-surface": "#2d3133",
+                        "surface": "#f7f9fb",
+                        "on-surface": "#191c1e",
+                        "on-error-container": "#93000a",
+                        "on-primary-container": "#7c839b",
+                        "on-tertiary-fixed": "#0b1c30",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#38485d",
+                        "secondary": "#0058be",
+                        "surface-container": "#eceef0",
+                        "on-error": "#ffffff",
+                        "background": "#f7f9fb",
+                        "inverse-on-surface": "#eff1f3",
+                        "secondary-fixed": "#d8e2ff",
+                        "on-secondary-fixed": "#001a42",
+                        "on-primary-fixed": "#131b2e",
+                        "tertiary": "#000000",
+                        "tertiary-container": "#0b1c30",
+                        "secondary-container": "#2170e4",
+                        "secondary-fixed-dim": "#adc6ff",
+                        "tertiary-fixed-dim": "#b7c8e1",
+                        "surface-bright": "#f7f9fb",
+                        "on-secondary": "#ffffff",
+                        "surface-container-low": "#f2f4f6",
+                        "surface-container-high": "#e6e8ea",
+                        "on-tertiary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "primary-fixed": "#dae2fd",
+                        "on-background": "#191c1e",
+                        "surface-variant": "#e0e3e5",
+                        "inverse-primary": "#bec6e0",
+                        "primary-container": "#131b2e"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "gutter": "24px",
+                        "unit": "4px",
+                        "margin-desktop": "40px",
+                        "container-max": "1280px"
+                    },
+                    "fontFamily": {
+                        "display-lg-mobile": ["IBM Plex Sans"],
+                        "body-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "headline-md": ["IBM Plex Sans"],
+                        "display-lg": ["IBM Plex Sans"],
+                        "body-lg": ["Inter"],
+                        "label-md": ["JetBrains Mono"]
+                    },
+                    "fontSize": {
+                        "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "500"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface">
+<!-- SideNavBar (Shared Component) -->
+<aside class="hidden md:flex h-screen w-64 fixed left-0 top-0 bg-surface dark:bg-surface-container-low border-r border-outline-variant/30 flex-col gap-unit p-4 z-50">
+<div class="flex items-center gap-3 mb-8 px-2">
+<div class="w-10 h-10 bg-primary flex items-center justify-center rounded-xl">
+<span class="material-symbols-outlined text-on-primary" data-icon="security" style="font-variation-settings: 'FILL' 1;">security</span>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary leading-tight">Brilliaris Sentinel</h1>
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Enterprise Security</p>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline font-label-md text-label-md hover:bg-surface-container-highest/50 dark:hover:bg-on-primary-fixed-variant/20 rounded-xl transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 bg-secondary-fixed text-on-secondary-fixed font-bold rounded-xl font-label-md text-label-md transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="folder_shared" style="font-variation-settings: 'FILL' 1;">folder_shared</span>
+                Projects
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline font-label-md text-label-md hover:bg-surface-container-highest/50 dark:hover:bg-on-primary-fixed-variant/20 rounded-xl transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="monitoring">monitoring</span>
+                Monitoring
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline font-label-md text-label-md hover:bg-surface-container-highest/50 dark:hover:bg-on-primary-fixed-variant/20 rounded-xl transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="notifications_active">notifications_active</span>
+                Alerts
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline font-label-md text-label-md hover:bg-surface-container-highest/50 dark:hover:bg-on-primary-fixed-variant/20 rounded-xl transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+                Team
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline font-label-md text-label-md hover:bg-surface-container-highest/50 dark:hover:bg-on-primary-fixed-variant/20 rounded-xl transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+                Reports
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline font-label-md text-label-md hover:bg-surface-container-highest/50 dark:hover:bg-on-primary-fixed-variant/20 rounded-xl transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="mail">mail</span>
+                Messages
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline font-label-md text-label-md hover:bg-surface-container-highest/50 dark:hover:bg-on-primary-fixed-variant/20 rounded-xl transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                Settings
+            </a>
+</nav>
+<div class="mt-auto pt-4 border-t border-outline-variant/30 px-2">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="A professional corporate portrait of a high-level security executive with a calm and focused expression. The lighting is crisp and cinematic, emphasizing a modern light-mode aesthetic with clean white backgrounds. The style is minimalist and high-fidelity, typical of enterprise software user avatars." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAf4dJyHYISfTvfmpAaY4mMGeqj80jcFvsJ-tT8uP-vM8n5Exo1-rpR7W9UBsPh-B_PzyaNaYsmrZzVc1mtgOqLz6MwBppgX6CneS6qsBr63SYHgFx__CqpjFEGEnz-WrfoYYiPlZ6LxkYS3DOWTnvJmv68RR5RvOs1BsYDIFnSP2gj5irbehxH3dHlOLX2ZhUfcTBjvZumhamXxeC1-w-b_HfN9E1vktoDqP7omNawNdZEoURfykugNwqG49g3JOL3ws6QiSA6RQ"/>
+</div>
+<div class="overflow-hidden">
+<p class="text-on-surface font-body-sm font-semibold truncate">Marcus Thorne</p>
+<p class="text-on-surface-variant text-[10px] uppercase font-label-md">Chief Admin</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="md:ml-64 min-h-screen">
+<!-- TopAppBar (Shared Component) -->
+<header class="sticky top-0 z-50 flex items-center justify-between px-margin-desktop h-16 w-full bg-surface/80 dark:bg-surface-container/80 backdrop-blur-lg border-b border-outline-variant/30 shadow-sm">
+<div class="flex items-center gap-6 flex-1">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant font-label-md" data-icon="search">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-full pl-10 pr-4 py-2 text-body-sm focus:ring-2 focus:ring-secondary/20 transition-all outline-none" placeholder="Search projects, assets, or logs..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-low dark:hover:bg-on-primary-fixed-variant/10 transition-colors rounded-full cursor-pointer active:scale-95 duration-200">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-low dark:hover:bg-on-primary-fixed-variant/10 transition-colors rounded-full cursor-pointer active:scale-95 duration-200">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+</button>
+</div>
+<div class="h-8 w-[1px] bg-outline-variant/30 mx-2"></div>
+<div class="flex items-center gap-3">
+<span class="font-label-md text-label-md text-on-surface-variant hidden lg:block">System Status: <span class="text-secondary font-bold">Optimal</span></span>
+</div>
+</div>
+</header>
+<!-- Project Content -->
+<div class="p-margin-desktop max-w-container-max mx-auto">
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+<div>
+<h2 class="font-display-lg text-display-lg text-primary tracking-tight mb-2">Projects</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Manage and monitor your secure infrastructure deployments.</p>
+</div>
+<div class="flex gap-3">
+<button class="px-6 py-2 bg-primary text-on-primary font-body-sm font-bold rounded-xl hover:opacity-90 transition-opacity flex items-center gap-2 shadow-sm">
+<span class="material-symbols-outlined text-[18px]" data-icon="add">add</span>
+                        New Project
+                    </button>
+</div>
+</div>
+<!-- Project Grid -->
+<div class="bento-grid">
+<!-- Project Card 1: Healthy -->
+<div class="group project-card bg-surface-container-lowest border border-outline-variant/30 rounded-xl overflow-hidden transition-all duration-300 hover:border-secondary/30 hover:shadow-lg relative">
+<div class="h-32 bg-surface-container relative overflow-hidden">
+<div class="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-secondary to-transparent"></div>
+<div class="absolute top-4 right-4 bg-surface-container-lowest px-3 py-1 rounded-full flex items-center gap-1.5 border border-outline-variant/20 shadow-sm">
+<span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+<span class="font-label-md text-label-md text-green-700">Healthy</span>
+</div>
+</div>
+<div class="p-6">
+<h3 class="font-headline-md text-headline-md font-bold text-primary mb-1">Quantum Core Expansion</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-6 line-clamp-2">Deployment of specialized sentinel nodes across EMEA high-frequency trading zones.</p>
+<div class="flex items-center justify-between pt-4 border-t border-outline-variant/20">
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full border-2 border-surface-container-lowest bg-surface-container">
+<img class="w-full h-full rounded-full object-cover" data-alt="Corporate professional portrait, minimal style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCK-b_bSqk47eHf88UkNXccUqbmBC-Wu2xGe4zsaeGl-Fm3FAGBxBKWtMJWsQHm2leBzWm5x3_FERpYG0UPFHiWxWqD3cP8U9ZmtQH4G-YE47FYDIgdYSCBG7HHC-mPB5xgYB_7V19uqbadPwSYlbG63VWV9JOccWopRCEcWmnwtcO1ypt57SnIZdnTQ9s1V9Y030FyvSgULA_o2s-2YokqiQwsNCWac40jvrzrFIw54aALiUbrN9Lt68fpcKKwbrMDibcK1eGAfw"/>
+</div>
+<div class="w-8 h-8 rounded-full border-2 border-surface-container-lowest bg-surface-container">
+<img class="w-full h-full rounded-full object-cover" data-alt="Corporate professional portrait, minimal style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9odg5RXNRAMw5L8GmdlDE1r24lkwMPbNPZ101Dxu3jf5Ft-6leN-Ag1DnL3Jj1cXqPiGQzO9G3msfxMAY9uqHr6jc2gwjHuD-ZP8nKLjesB3tN0FJrG18WrDFUOYyTSyZxEjrMSOJZrNnjjYkFhOKhMFlcMjb2e_T6yX5bNaW-K3ROlC_nLWxO3L65Ph9A-6JqcZLyJFYZ2WSeT9AjU7Ua2KUYIz4L8xKH3mwZ_MrZvhDbD_bixcn8G8C5o91wcSoPg-SFITy6A"/>
+</div>
+<div class="w-8 h-8 rounded-full border-2 border-surface-container-lowest bg-primary flex items-center justify-center">
+<span class="text-[10px] text-on-primary font-bold">+4</span>
+</div>
+</div>
+<button class="action-button flex items-center gap-1 text-secondary font-body-sm font-bold px-4 py-2 rounded-lg hover:bg-secondary/5 transition-all">
+                                View Tasks
+                                <span class="material-symbols-outlined text-[18px]" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Project Card 2: Warning -->
+<div class="group project-card bg-surface-container-lowest border border-outline-variant/30 rounded-xl overflow-hidden transition-all duration-300 hover:border-secondary/30 hover:shadow-lg relative">
+<div class="h-32 bg-surface-container relative overflow-hidden">
+<div class="absolute inset-0 opacity-10 bg-[linear-gradient(45deg,_var(--tw-gradient-stops))] from-amber-500 to-transparent"></div>
+<div class="absolute top-4 right-4 bg-surface-container-lowest px-3 py-1 rounded-full flex items-center gap-1.5 border border-outline-variant/20 shadow-sm">
+<span class="w-2 h-2 rounded-full bg-amber-500"></span>
+<span class="font-label-md text-label-md text-amber-700">Warning</span>
+</div>
+</div>
+<div class="p-6">
+<h3 class="font-headline-md text-headline-md font-bold text-primary mb-1">Cipher-Gate Protocol</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-6 line-clamp-2">Legacy encryption bridge update for the southeast regional banking cluster.</p>
+<div class="flex items-center justify-between pt-4 border-t border-outline-variant/20">
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full border-2 border-surface-container-lowest bg-surface-container">
+<img class="w-full h-full rounded-full object-cover" data-alt="Corporate professional portrait, minimal style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCIyCnRaOnIS9PdXu_O4VaBEOtusIR_Mg1tsSpPVW3pSVzFnBLR_RSjM1w6SvdM7h0vBSg5I0OD2EDHkA7XQum0uoVooGovDY1hTQal34SImiNqwysKlu4YJkoZO1k6gnr80nq8A-qh9VBeGENkV4zCR0RDSuYHC3V3V6OWoDVZgAKDRkWoVz1sLYRCUMt2XJrI18sPdIe-Z-bB8ZMvfHxy6vc3aCSDR9Iu3DczBu0h6qXCi1pKMZx8Jztb6DdaG7D8FKrkXmawGQ"/>
+</div>
+<div class="w-8 h-8 rounded-full border-2 border-surface-container-lowest bg-primary flex items-center justify-center">
+<span class="text-[10px] text-on-primary font-bold">ST</span>
+</div>
+</div>
+<button class="action-button flex items-center gap-1 text-secondary font-body-sm font-bold px-4 py-2 rounded-lg hover:bg-secondary/5 transition-all">
+                                View Tasks
+                                <span class="material-symbols-outlined text-[18px]" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Project Card 3: Blocker -->
+<div class="group project-card bg-surface-container-lowest border border-outline-variant/30 rounded-xl overflow-hidden transition-all duration-300 hover:border-secondary/30 hover:shadow-lg relative">
+<div class="h-32 bg-surface-container relative overflow-hidden">
+<div class="absolute inset-0 opacity-10 bg-[linear-gradient(to_bottom,_var(--tw-gradient-stops))] from-red-600 to-transparent"></div>
+<div class="absolute top-4 right-4 bg-surface-container-lowest px-3 py-1 rounded-full flex items-center gap-1.5 border border-outline-variant/20 shadow-sm">
+<span class="w-2 h-2 rounded-full bg-red-600"></span>
+<span class="font-label-md text-label-md text-red-700">Blocker</span>
+</div>
+</div>
+<div class="p-6">
+<h3 class="font-headline-md text-headline-md font-bold text-primary mb-1">Titan Firewall Sync</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-6 line-clamp-2">Critical failure in the synchronization layer for global perimeter defense assets.</p>
+<div class="flex items-center justify-between pt-4 border-t border-outline-variant/20">
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full border-2 border-surface-container-lowest bg-surface-container">
+<img class="w-full h-full rounded-full object-cover" data-alt="Corporate professional portrait, minimal style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuABD6Hm-UkvYDq-jr44G4Rsf48BHcZjrEr-otwe8Gk2Yim2H9nZZ9Nd95tlOsCuA6AyC1mR4yjos4A_IZWdsar2RrdiUnSBV6763ZGViToSY5ppblGjXN54qGZD_9tfAH6lwMazJeFu1VHi0MHkH2OmJWNQJMR13vy2vDiChkZ_q1GBqT_9iKZwBgWvKNNu93zCNmWnjoK3CNnQ8ctsY3kJ2Pf0Vr0arfStHyOqkSSWDHOzaaEMAc5BOMHpQ0I6KLqkJ_o9Abaqjw"/>
+</div>
+</div>
+<button class="action-button flex items-center gap-1 text-secondary font-body-sm font-bold px-4 py-2 rounded-lg hover:bg-secondary/5 transition-all">
+                                View Tasks
+                                <span class="material-symbols-outlined text-[18px]" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Project Card 4: Healthy -->
+<div class="group project-card bg-surface-container-lowest border border-outline-variant/30 rounded-xl overflow-hidden transition-all duration-300 hover:border-secondary/30 hover:shadow-lg relative">
+<div class="h-32 bg-surface-container relative overflow-hidden">
+<div class="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-secondary/50 to-transparent"></div>
+<div class="absolute top-4 right-4 bg-surface-container-lowest px-3 py-1 rounded-full flex items-center gap-1.5 border border-outline-variant/20 shadow-sm">
+<span class="w-2 h-2 rounded-full bg-green-500"></span>
+<span class="font-label-md text-label-md text-green-700">Healthy</span>
+</div>
+</div>
+<div class="p-6">
+<h3 class="font-headline-md text-headline-md font-bold text-primary mb-1">Shadow Net Audit</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-6 line-clamp-2">Annual penetration testing and compliance audit for Tier-1 data centers.</p>
+<div class="flex items-center justify-between pt-4 border-t border-outline-variant/20">
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full border-2 border-surface-container-lowest bg-surface-container">
+<img class="w-full h-full rounded-full object-cover" data-alt="Corporate professional portrait, minimal style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuArMQWfEe_bAFMay6MHmh2_Crgyuh-EBZ5xIPcqIkf8-M-_2HQYhRjO6Tn3hppaYImYXQaMPah3FhBEDC5_sZUFS1iLKqOKRDDbqBtN-LkRD_etRhKy5cSbN9zxxf6SOkDWorkN65GkDSbqDeCRs9RUJY-GM-vPv8BM8JOA_Q6w68io1wjL8S6zvAe73ovogn-cnAi2X1eMLMHGdtSU4SnFzFEE9AdEjIpQJJQepCZfiHHBjs9yobGDjTSYg2Uj9UD84dR-8c3bjA"/>
+</div>
+<div class="w-8 h-8 rounded-full border-2 border-surface-container-lowest bg-surface-container">
+<img class="w-full h-full rounded-full object-cover" data-alt="Corporate professional portrait, minimal style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9jvCg0cYZ5uSxVnomnBoTkt5K0ht5z4LLw2Gcb0J-3NZpFsg_VJJpRMOzOC3Pz3t-YIfhwZS3Q6KPF0u4VVWW9ARSkoxFWZUUPCo15twuZZmBVdoyJlxb4EnPQDWEt5vDoLx8smObqH_5bV-9QBPfVjX0ujJn309sFLAbciIzGFtzxAqgkR2IDOOzIMkg3nhNMgCe9V-3n68rd2BwSLtEi4fI4m81QnpyqEUflDSILQqcjmAcF0ZIF9z3hzH_JrzE1OCoJAc3yg"/>
+</div>
+</div>
+<button class="action-button flex items-center gap-1 text-secondary font-body-sm font-bold px-4 py-2 rounded-lg hover:bg-secondary/5 transition-all">
+                                View Tasks
+                                <span class="material-symbols-outlined text-[18px]" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Activity Feed Section (High-end UX Pattern) -->
+<div class="mt-12 grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+<div class="lg:col-span-2 bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-8">
+<div class="flex items-center justify-between mb-8">
+<h4 class="font-headline-md text-headline-md font-bold text-primary">System Feed</h4>
+<button class="text-secondary font-label-md text-label-md uppercase tracking-widest font-bold">View History</button>
+</div>
+<div class="space-y-6">
+<div class="flex gap-4">
+<div class="flex flex-col items-center">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed flex items-center justify-center border border-secondary/20">
+<span class="material-symbols-outlined text-secondary" data-icon="cloud_upload">cloud_upload</span>
+</div>
+<div class="w-[1px] h-full bg-outline-variant/30 mt-2"></div>
+</div>
+<div class="pb-6">
+<p class="font-body-md text-body-md text-on-surface font-semibold">New Deployment Target Added</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-2">Quantum Core Expansion expanded to 'Frankfurt-IX'.</p>
+<span class="font-label-md text-label-md text-outline">12 MINUTES AGO</span>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="flex flex-col items-center">
+<div class="w-10 h-10 rounded-full bg-error-container flex items-center justify-center border border-error/20">
+<span class="material-symbols-outlined text-error" data-icon="error">error</span>
+</div>
+<div class="w-[1px] h-full bg-outline-variant/30 mt-2"></div>
+</div>
+<div class="pb-6">
+<p class="font-body-md text-body-md text-on-surface font-semibold">Security Alert Triggered</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-2">Unusual activity detected on Titan Firewall Sync node 'Alpha-7'.</p>
+<span class="font-label-md text-label-md text-outline">2 HOURS AGO</span>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="flex flex-col items-center">
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center border border-primary/20">
+<span class="material-symbols-outlined text-primary" data-icon="person_add">person_add</span>
+</div>
+</div>
+<div>
+<p class="font-body-md text-body-md text-on-surface font-semibold">New Team Member Joined</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-2">Sarah Jenkins added to Shadow Net Audit project.</p>
+<span class="font-label-md text-label-md text-outline">5 HOURS AGO</span>
+</div>
+</div>
+</div>
+</div>
+<div class="space-y-gutter">
+<!-- Quick Stats Widget -->
+<div class="bg-primary text-on-primary rounded-xl p-8 shadow-xl">
+<h4 class="font-label-md text-label-md text-on-primary/60 uppercase tracking-widest mb-6">Security Posture</h4>
+<div class="flex items-end justify-between mb-4">
+<span class="font-display-lg text-display-lg leading-none">98.4<span class="text-display-lg-mobile text-on-primary/40">%</span></span>
+<span class="material-symbols-outlined text-[48px] text-on-primary/20" data-icon="verified_user">verified_user</span>
+</div>
+<div class="w-full bg-on-primary/20 h-1 rounded-full overflow-hidden mb-2">
+<div class="bg-on-primary h-full w-[98.4%]"></div>
+</div>
+<p class="font-body-sm text-body-sm text-on-primary/80 italic">Above global industry benchmark.</p>
+</div>
+<!-- Pinned Project Widget -->
+<div class="bg-surface-container-high border border-outline-variant/30 rounded-xl p-6">
+<div class="flex items-center justify-between mb-4">
+<span class="font-label-md text-label-md text-on-surface-variant font-bold uppercase tracking-widest">Active Sprint</span>
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="push_pin" style="font-variation-settings: 'FILL' 1;">push_pin</span>
+</div>
+<h5 class="font-body-md text-body-md font-bold mb-2">Encryption Bridge Q3</h5>
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-[16px] text-secondary" data-icon="schedule">schedule</span>
+<span class="font-body-sm text-body-sm">4 days remaining</span>
+</div>
+<button class="w-full py-2 bg-surface-container-lowest border border-outline-variant/30 rounded-lg font-body-sm font-bold hover:bg-surface-container-highest/50 transition-colors">Go to Board</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Mobile BottomNavBar (Shared Component Filter Applied: Shown on mobile) -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 h-16 bg-surface border-t border-outline-variant/30 px-margin-mobile flex items-center justify-around z-50">
+<button class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-md text-[10px]">Home</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-secondary">
+<span class="material-symbols-outlined" data-icon="folder_shared" style="font-variation-settings: 'FILL' 1;">folder_shared</span>
+<span class="font-label-md text-[10px] font-bold">Projects</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="mail">mail</span>
+<span class="font-label-md text-[10px]">Inbox</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-md text-[10px]">Settings</span>
+</button>
+</nav>
+<!-- Contextual FAB (Only on relevant screens) -->
+<button class="fixed bottom-8 right-8 w-14 h-14 bg-secondary text-on-secondary rounded-full flex items-center justify-center shadow-2xl hover:scale-105 active:scale-95 transition-transform z-40 md:flex hidden">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+</button>
+<script>
+        // Micro-interactions for Project Cards
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-4px)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body></html>

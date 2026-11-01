@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Brilliaris Sentinel - Executive Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=IBM+Plex+Sans:wght@500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f7f9fb;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #c6c6cd;
+            border-radius: 10px;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed-variant": "#3f465c",
+                        "on-secondary-container": "#fefcff",
+                        "outline-variant": "#c6c6cd",
+                        "outline": "#76777d",
+                        "tertiary-fixed": "#d3e4fe",
+                        "on-surface-variant": "#45464d",
+                        "error-container": "#ffdad6",
+                        "surface-container-highest": "#e0e3e5",
+                        "primary": "#000000",
+                        "surface-dim": "#d8dadc",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed-variant": "#004395",
+                        "surface-tint": "#565e74",
+                        "on-tertiary-container": "#75859d",
+                        "primary-fixed-dim": "#bec6e0",
+                        "inverse-surface": "#2d3133",
+                        "surface": "#f7f9fb",
+                        "on-surface": "#191c1e",
+                        "on-error-container": "#93000a",
+                        "on-primary-container": "#7c839b",
+                        "on-tertiary-fixed": "#0b1c30",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#38485d",
+                        "secondary": "#0058be",
+                        "surface-container": "#eceef0",
+                        "on-error": "#ffffff",
+                        "background": "#f7f9fb",
+                        "inverse-on-surface": "#eff1f3",
+                        "secondary-fixed": "#d8e2ff",
+                        "on-secondary-fixed": "#001a42",
+                        "on-primary-fixed": "#131b2e",
+                        "tertiary": "#000000",
+                        "tertiary-container": "#0b1c30",
+                        "secondary-container": "#2170e4",
+                        "secondary-fixed-dim": "#adc6ff",
+                        "tertiary-fixed-dim": "#b7c8e1",
+                        "surface-bright": "#f7f9fb",
+                        "on-secondary": "#ffffff",
+                        "surface-container-low": "#f2f4f6",
+                        "surface-container-high": "#e6e8ea",
+                        "on-tertiary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "primary-fixed": "#dae2fd",
+                        "on-background": "#191c1e",
+                        "surface-variant": "#e0e3e5",
+                        "inverse-primary": "#bec6e0",
+                        "primary-container": "#131b2e"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "gutter": "24px",
+                        "unit": "4px",
+                        "margin-desktop": "40px",
+                        "container-max": "1280px"
+                    },
+                    "fontFamily": {
+                        "display-lg-mobile": ["IBM Plex Sans"],
+                        "body-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "headline-md": ["IBM Plex Sans"],
+                        "display-lg": ["IBM Plex Sans"],
+                        "body-lg": ["Inter"],
+                        "label-md": ["JetBrains Mono"]
+                    },
+                    "fontSize": {
+                        "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "500"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface font-body-md">
+<!-- Sidebar Navigation -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-surface border-r border-outline-variant/30 flex flex-col gap-unit p-4 z-40">
+<div class="flex items-center gap-3 px-2 mb-8">
+<div class="w-10 h-10 bg-primary flex items-center justify-center rounded-lg">
+<span class="material-symbols-outlined text-on-primary" style="font-variation-settings: 'FILL' 1;">shield</span>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary leading-tight">Sentinel</h1>
+<p class="font-label-md text-label-md text-outline tracking-widest uppercase">Enterprise</p>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<!-- Active Tab: Dashboard -->
+<a class="flex items-center gap-3 px-4 py-3 bg-secondary-fixed text-on-secondary-fixed font-bold rounded-xl transition-all duration-300" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-highest/50 rounded-xl transition-all duration-300" href="#">
+<span class="material-symbols-outlined">folder_shared</span>
+<span class="font-label-md text-label-md">Projects</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-highest/50 rounded-xl transition-all duration-300" href="#">
+<span class="material-symbols-outlined">monitoring</span>
+<span class="font-label-md text-label-md">Monitoring</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-highest/50 rounded-xl transition-all duration-300" href="#">
+<span class="material-symbols-outlined">notifications_active</span>
+<span class="font-label-md text-label-md">Alerts</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-highest/50 rounded-xl transition-all duration-300" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-md text-label-md">Team</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-highest/50 rounded-xl transition-all duration-300" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-md text-label-md">Reports</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-highest/50 rounded-xl transition-all duration-300" href="#">
+<span class="material-symbols-outlined">mail</span>
+<span class="font-label-md text-label-md">Messages</span>
+</a>
+</nav>
+<div class="mt-auto border-t border-outline-variant/20 pt-4">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-highest/50 rounded-xl transition-all duration-300" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+<div class="flex items-center gap-3 p-2 mt-4 bg-surface-container-low rounded-full">
+<img class="w-8 h-8 rounded-full border border-outline-variant" data-alt="Professional corporate headshot of a senior technology executive with a neutral background, captured in soft professional studio lighting to evoke trust and high-level leadership. The lighting is bright and clean, fitting the modern enterprise aesthetic of the Brilliaris Sentinel brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtiw2GtI0JrguJVzNFgUAtCuM4VHuX52mVEzFyexXzh5drJlueg0Dapbxi-8VoYEorMRSe3oeujH4-6gT9UU7EDv0Fg1MjfgRGxZhakDC2moTsv63BwSsGJS7p81M3YqQuEe3a15ES0F5VlhfEl8bN2J_vPoMMAEAvUDuBwVcQEG52yX_cvvmNiigHlMWXSb7YBR23qeAUQhWPZXMLwcLihEyYZC8uNjkM8vNFBcAEOcHWAS-7ipMdae9eRNwnnAQmNhTUGIYKWA"/>
+<div class="flex-1 min-w-0">
+<p class="text-xs font-bold truncate">Alex Sterling</p>
+<p class="text-[10px] text-outline truncate">Chief Security Officer</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="ml-64 min-h-screen">
+<!-- Top Navigation -->
+<header class="sticky top-0 z-30 flex items-center justify-between px-margin-desktop h-16 w-full bg-surface/80 backdrop-blur-lg border-b border-outline-variant/30 shadow-sm">
+<div class="flex items-center gap-8">
+<div class="relative group w-96">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-sm">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border border-outline-variant/50 rounded-full text-body-sm focus:ring-1 focus:ring-secondary focus:border-secondary transition-all outline-none" placeholder="Search systems, logs, or team..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-low transition-colors active:scale-95">
+<span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+</button>
+<div class="h-6 w-px bg-outline-variant/40"></div>
+<div class="flex items-center gap-2">
+<span class="font-label-md text-label-md text-outline">REGION:</span>
+<span class="font-label-md text-label-md font-bold text-secondary">GLOBAL_SENTINEL_01</span>
+</div>
+</div>
+</header>
+<!-- Dashboard Content -->
+<div class="p-10 max-w-container-max mx-auto">
+<!-- Header Section -->
+<div class="flex justify-between items-end mb-10">
+<div>
+<h2 class="font-display-lg text-display-lg font-bold text-primary tracking-tight">Executive Summary</h2>
+<p class="text-body-lg text-on-surface-variant mt-2">Real-time oversight for Brilliaris Sentinel Infrastructure.</p>
+</div>
+<div class="flex gap-3">
+<button class="px-6 py-2 bg-surface border border-outline-variant text-primary font-bold text-body-sm rounded hover:bg-surface-container transition-colors">Export PDF</button>
+<button class="px-6 py-2 bg-primary text-on-primary font-bold text-body-sm rounded hover:opacity-90 transition-opacity">Deploy Protocol</button>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="bento-grid">
+<!-- KPI: Security Health -->
+<div class="col-span-4 glass-card p-6 rounded-xl relative overflow-hidden group">
+<div class="relative z-10">
+<div class="flex items-center justify-between mb-4">
+<span class="text-on-surface-variant font-label-md text-label-md">SECURITY HEALTH</span>
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">security</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="text-4xl font-bold font-display-lg text-primary">98.4</span>
+<span class="text-xl font-medium text-primary-container">%</span>
+</div>
+<div class="mt-4 flex items-center gap-2 text-green-600 font-bold text-xs">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+<span>+2.1% from last audit</span>
+</div>
+</div>
+<div class="absolute bottom-0 right-0 opacity-5 scale-150 pointer-events-none">
+<span class="material-symbols-outlined text-9xl">health_metrics</span>
+</div>
+</div>
+<!-- KPI: Active Monitoring -->
+<div class="col-span-4 glass-card p-6 rounded-xl">
+<div class="flex items-center justify-between mb-4">
+<span class="text-on-surface-variant font-label-md text-label-md">ACTIVE NODES</span>
+<div class="flex h-2 w-2 rounded-full bg-green-500 animate-pulse"></div>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="text-4xl font-bold font-display-lg text-primary">1,240</span>
+<span class="text-xs font-label-md text-outline">UPTIME: 99.99%</span>
+</div>
+<div class="mt-4 flex gap-1">
+<div class="h-1.5 flex-1 bg-secondary rounded-full"></div>
+<div class="h-1.5 flex-1 bg-secondary rounded-full"></div>
+<div class="h-1.5 flex-1 bg-secondary rounded-full"></div>
+<div class="h-1.5 flex-1 bg-secondary rounded-full"></div>
+<div class="h-1.5 flex-1 bg-secondary/20 rounded-full"></div>
+</div>
+<p class="text-[10px] text-outline mt-2 font-label-md">4 INSTANCES UNDER MAINTENANCE</p>
+</div>
+<!-- KPI: Threat Mitigation -->
+<div class="col-span-4 glass-card p-6 rounded-xl">
+<div class="flex items-center justify-between mb-4">
+<span class="text-on-surface-variant font-label-md text-label-md">THREATS NEUTRALIZED</span>
+<span class="material-symbols-outlined text-error" style="font-variation-settings: 'FILL' 1;">emergency_home</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="text-4xl font-bold font-display-lg text-primary">14</span>
+<span class="text-xs font-label-md text-outline">LAST 24 HOURS</span>
+</div>
+<div class="mt-4 p-2 bg-error-container/30 rounded border border-error/10">
+<p class="text-[10px] text-on-error-container font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">warning</span>
+                            HIGH-LEVEL ATTEMPT BLOCKED (SHA-256)
+                        </p>
+</div>
+</div>
+<!-- Main Visualization: System Performance -->
+<div class="col-span-8 glass-card p-8 rounded-xl min-h-[400px] flex flex-col">
+<div class="flex justify-between items-start mb-8">
+<div>
+<h3 class="font-headline-md text-headline-md text-primary font-bold">Network Traffic &amp; Uptime</h3>
+<p class="text-body-sm text-outline mt-1">Holistic performance tracking across global subnets.</p>
+</div>
+<div class="flex gap-2 bg-surface-container-low p-1 rounded-lg">
+<button class="px-3 py-1 text-[10px] font-bold bg-white shadow-sm rounded-md">24H</button>
+<button class="px-3 py-1 text-[10px] font-bold text-outline hover:text-primary">7D</button>
+<button class="px-3 py-1 text-[10px] font-bold text-outline hover:text-primary">30D</button>
+</div>
+</div>
+<div class="flex-1 relative border-l border-b border-outline-variant/30 mt-4 overflow-hidden group">
+<!-- Simulated Chart -->
+<div class="absolute inset-0 flex items-end justify-between px-4 pb-4">
+<div class="w-full h-full absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-secondary to-transparent"></div>
+<!-- Simple Animated SVG Graph -->
+<svg class="w-full h-full overflow-visible" preserveaspectratio="none" viewbox="0 0 800 200">
+<path class="drop-shadow-lg" d="M0,150 Q100,50 200,120 T400,80 T600,160 T800,40" fill="none" stroke="#0058be" stroke-linecap="round" stroke-width="3"></path>
+<path d="M0,150 Q100,50 200,120 T400,80 T600,160 T800,40 V200 H0 Z" fill="url(#gradient-chart)"></path>
+<defs>
+<lineargradient id="gradient-chart" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#0058be" stop-opacity="0.2"></stop>
+<stop offset="100%" stop-color="#0058be" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+<circle cx="400" cy="80" fill="#0058be" r="4"></circle>
+<text fill="#0058be" font-size="10" font-weight="bold" text-anchor="middle" x="400" y="65">PEAK: 4.2GB/s</text>
+</svg>
+</div>
+<div class="absolute bottom-4 w-full flex justify-between px-4 text-[10px] font-label-md text-outline">
+<span>00:00</span>
+<span>04:00</span>
+<span>08:00</span>
+<span>12:00</span>
+<span>16:00</span>
+<span>20:00</span>
+</div>
+</div>
+</div>
+<!-- Secondary Column: Recent Activity & Team -->
+<div class="col-span-4 flex flex-col gap-6">
+<!-- Recent Team Activity -->
+<div class="glass-card p-6 rounded-xl flex-1">
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-headline-md text-body-md font-bold text-primary">Team Operations</h3>
+<button class="text-xs font-bold text-secondary hover:underline">View All</button>
+</div>
+<div class="space-y-5">
+<div class="flex gap-4">
+<div class="w-10 h-10 rounded-lg overflow-hidden shrink-0 border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="Portrait of a female cybersecurity specialist wearing minimalist tech-wear, captured in a cool blue and grey studio environment with sharp focus. The lighting is clean and industrial, representing the high-tech, precise environment of Brilliaris Sentinel operations." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA72xpIznoPRP8iZw7vfodN02PtvEsMhJ80QCm4NsqbbfnF4X1jN6AoS5u903jXaTwCkdhbk4yrC3YbiSapC2KeFlhb24dbNb0i8tEgWozgy1h545EnDxjwNwX1YpYQgSB-Op1bLLqNk6ZVwHJmki9rEfusLPembC0lmmrIFpEYn7gt7OAxytlPgsJKYtkGkR5gQs8R641HD0P9t1iK0d460yjvcFMM328xfKnp_DwDYnju2d38OCuo5rd6Ga2G1Si06s3OcDlFlA"/>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-xs text-on-surface font-bold truncate">Sarah Jenkins <span class="font-normal text-outline">updated Firewall v2.4</span></p>
+<p class="text-[10px] text-outline mt-1 font-label-md">2 MINS AGO • CORE_SERVER_HK</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="w-10 h-10 rounded-lg overflow-hidden shrink-0 border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="Portrait of a professional male systems engineer in a high-contrast corporate lighting setting. He wears a dark shirt and has a focused, professional expression. The background features subtle light-trails of digital data, reinforcing the theme of advanced infrastructure and surveillance." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBC864IluMliqmPuUvPAC_yodS3hypAtjpwK3qXmPtugaaAL3NXF6wgG8ztkstG8BrRfHLPXUYmvcCQWg7TZdQM1pgdJYVWQS8yOgdbw79x4JhpEjwSkpPoJkmmcuWC4VHqMWpULHrWZy3nfGzwZbuFvFM2rAtqsmuM1ka-QWNXfRQaw6earaKcWAZCVuh9-k6BDCl8uJvNw1TAXM0aJCZhnltcIylQp8gft-Da9NXxeMQqfwUuf6RqmYGTKSbkCwAIkhjdlkFJgw"/>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-xs text-on-surface font-bold truncate">Marcus Thorne <span class="font-normal text-outline">validated Access logs</span></p>
+<p class="text-[10px] text-outline mt-1 font-label-md">14 MINS AGO • DATA_LAKE_09</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="w-10 h-10 rounded-lg overflow-hidden shrink-0 border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="Professional profile of a lead cloud architect with a minimalist white and glass office background. The lighting is bright and airy, characteristic of a high-end light-mode UI design. The subject looks confident and technical, fitting the enterprise security domain." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDWPmsc3xdnBzn2clX9Yl5EcSTt0eejhfQgEsGII6uMzwrtACI-qCj8bsv62gpxyox_ZtLIHJKoJfuid3tHYcBttbUIjjB3Tq5fUz9j4SNQvcqj1QTLCqSUb0X_XSPSNeRsbSIM8SFhHJOcjRlE3v9ymqMjk_y-gNsKUH314vMfqK0Waozl63iDL_MGVQGcK1wxaZgX-Ec7ID6gllJ1zLOD7_XT6xnudwNtbTSPJQhIkRt3E7a2HVAJimU1qdgWwlM__rbwXlKYEg"/>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-xs text-on-surface font-bold truncate">Elena Rossi <span class="font-normal text-outline">deployed Encryption fix</span></p>
+<p class="text-[10px] text-outline mt-1 font-label-md">45 MINS AGO • GLOBAL_GATEWAY</p>
+</div>
+</div>
+</div>
+</div>
+<!-- System Status Card -->
+<div class="bg-primary-container p-6 rounded-xl text-on-primary">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-secondary-fixed">cloud_done</span>
+<span class="font-label-md text-label-md text-on-primary-container">SYSTEM INTEGRITY</span>
+</div>
+<p class="text-body-sm mb-4 text-on-primary-container">All global clusters are currently operating within optimal parameters. No manual intervention required.</p>
+<div class="flex -space-x-2">
+<div class="w-6 h-6 rounded-full border border-primary bg-green-500 flex items-center justify-center text-[10px] font-bold">1</div>
+<div class="w-6 h-6 rounded-full border border-primary bg-green-500 flex items-center justify-center text-[10px] font-bold">2</div>
+<div class="w-6 h-6 rounded-full border border-primary bg-green-500 flex items-center justify-center text-[10px] font-bold">3</div>
+<div class="w-6 h-6 rounded-full border border-primary bg-green-500 flex items-center justify-center text-[10px] font-bold">4</div>
+<div class="w-6 h-6 rounded-full border border-primary bg-primary-container flex items-center justify-center text-[8px] font-bold">+24</div>
+</div>
+</div>
+</div>
+<!-- Footer Stats -->
+<div class="col-span-12 glass-card p-4 rounded-xl flex items-center justify-between border-dashed border-2 border-outline-variant/30">
+<div class="flex gap-12">
+<div class="flex flex-col">
+<span class="text-[10px] font-label-md text-outline">UPTIME RATIO</span>
+<span class="text-sm font-bold font-label-md">0.99998</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[10px] font-label-md text-outline">LATENCY (AVG)</span>
+<span class="text-sm font-bold font-label-md">12ms</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[10px] font-label-md text-outline">API THROUGHPUT</span>
+<span class="text-sm font-bold font-label-md">45k req/s</span>
+</div>
+</div>
+<div class="flex items-center gap-4 text-xs font-bold text-outline">
+<span>SENTINEL ENGINE v4.2.0-STABLE</span>
+<div class="w-2 h-2 rounded-full bg-secondary"></div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Micro-interaction Scripts -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Subtle hover scaling for bento cards
+            const cards = document.querySelectorAll('.glass-card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    card.style.transform = 'translateY(-2px)';
+                    card.style.transition = 'all 0.3s ease';
+                    card.classList.add('shadow-md');
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'translateY(0)';
+                    card.classList.remove('shadow-md');
+                });
+            });
+        });
+    </script>
+</body></html>

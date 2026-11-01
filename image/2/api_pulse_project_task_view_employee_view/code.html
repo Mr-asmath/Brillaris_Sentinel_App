@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Daily Tasks | API Pulse</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .task-completed {
+            text-decoration: line-through;
+            opacity: 0.6;
+            pointer-events: none;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 92, 85, 0.1);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #005c5533;
+            border-radius: 10px;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-tertiary": "#ffffff",
+                      "on-primary": "#ffffff",
+                      "on-error-container": "#93000a",
+                      "surface-container-lowest": "#ffffff",
+                      "secondary": "#006b5f",
+                      "on-error": "#ffffff",
+                      "tertiary-fixed-dim": "#2fd9f4",
+                      "on-secondary": "#ffffff",
+                      "primary-fixed": "#9cf2e8",
+                      "on-surface": "#0b1c30",
+                      "secondary-container": "#6df5e1",
+                      "tertiary": "#005a66",
+                      "tertiary-fixed": "#a2eeff",
+                      "on-background": "#0b1c30",
+                      "secondary-fixed-dim": "#4fdbc8",
+                      "inverse-on-surface": "#eaf1ff",
+                      "on-surface-variant": "#3e4947",
+                      "error": "#ba1a1a",
+                      "on-primary-fixed-variant": "#00504a",
+                      "error-container": "#ffdad6",
+                      "surface": "#f8f9ff",
+                      "inverse-surface": "#213145",
+                      "on-tertiary-fixed": "#001f25",
+                      "surface-bright": "#f8f9ff",
+                      "on-secondary-fixed-variant": "#005048",
+                      "surface-container-low": "#eff4ff",
+                      "surface-container-highest": "#d3e4fe",
+                      "surface-variant": "#d3e4fe",
+                      "primary": "#005c55",
+                      "primary-container": "#0f766e",
+                      "surface-tint": "#006a63",
+                      "secondary-fixed": "#71f8e4",
+                      "on-tertiary-fixed-variant": "#004e5a",
+                      "on-secondary-container": "#006f64",
+                      "tertiary-container": "#007484",
+                      "surface-container-high": "#dce9ff",
+                      "on-primary-container": "#a3faef",
+                      "primary-fixed-dim": "#80d5cb",
+                      "inverse-primary": "#80d5cb",
+                      "surface-container": "#e5eeff",
+                      "surface-dim": "#cbdbf5",
+                      "outline-variant": "#bdc9c6",
+                      "outline": "#6e7977",
+                      "on-tertiary-container": "#bef3ff",
+                      "on-secondary-fixed": "#00201c",
+                      "on-primary-fixed": "#00201d",
+                      "background": "#f8f9ff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "unit": "4px",
+                      "margin-page": "32px",
+                      "stack-sm": "8px",
+                      "stack-md": "16px",
+                      "gutter": "24px",
+                      "container-max": "1440px",
+                      "stack-lg": "24px"
+              },
+              "fontFamily": {
+                      "mono-md": ["JetBrains Mono"],
+                      "label-md": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "headline-lg": ["Inter"],
+                      "title-lg": ["Inter"],
+                      "body-md": ["Inter"],
+                      "display-lg": ["Inter"],
+                      "body-lg": ["Inter"]
+              },
+              "fontSize": {
+                      "mono-md": ["13px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                      "title-lg": ["18px", {"lineHeight": "28px", "fontWeight": "600"}],
+                      "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+              }
+            }
+          }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen">
+<!-- SideNavBar -->
+<aside class="w-[240px] h-screen fixed left-0 top-0 bg-surface-container-low/70 backdrop-blur-xl border-r border-outline-variant/10 shadow-sm flex flex-col py-stack-lg px-stack-md z-50">
+<div class="mb-stack-lg px-2">
+<h1 class="font-headline-md text-headline-md font-bold text-primary">API Pulse</h1>
+<p class="text-label-md font-label-md text-on-surface-variant/70">Enterprise Plan</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant font-body-md font-semibold hover:bg-surface-container-high rounded-lg transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span> Dashboard
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-primary font-bold bg-primary-container/20 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span> Projects
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant font-body-md font-semibold hover:bg-surface-container-high rounded-lg transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span> Team
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant font-body-md font-semibold hover:bg-surface-container-high rounded-lg transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span> Reports
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant font-body-md font-semibold hover:bg-surface-container-high rounded-lg transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span> Settings
+            </a>
+</nav>
+<div class="mt-auto border-t border-outline-variant/10 pt-stack-md space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant font-body-md font-semibold hover:bg-surface-container-high rounded-lg transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span> Help
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant font-body-md font-semibold hover:bg-surface-container-high rounded-lg transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span> Logout
+            </a>
+</div>
+</aside>
+<!-- TopNavBar -->
+<header class="fixed top-0 right-0 left-[240px] h-16 bg-surface/70 backdrop-blur-md border-b border-outline-variant/10 shadow-sm flex justify-between items-center px-gutter z-40">
+<div class="flex items-center gap-stack-md flex-1 max-w-xl">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant/50" data-icon="search">search</span>
+<input class="w-full bg-surface-container-low border border-outline-variant/20 rounded-full py-1.5 pl-10 pr-4 text-body-md focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" placeholder="Search tasks, projects, endpoints..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-stack-md">
+<div class="flex items-center gap-2 text-on-surface-variant">
+<button class="p-2 hover:bg-surface-container-high rounded-full transition-colors relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="p-2 hover:bg-surface-container-high rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+</div>
+<div class="h-8 w-[1px] bg-outline-variant/20 mx-2"></div>
+<div class="flex items-center gap-3">
+<div class="text-right hidden sm:block">
+<p class="text-label-md font-bold text-on-surface">Alex Rivera</p>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-wider">DevOps Lead</p>
+</div>
+<img class="w-10 h-10 rounded-full border-2 border-primary-container object-cover" data-alt="A professional headshot of a middle-aged tech professional with a friendly smile, clean-shaven, wearing a dark navy polo shirt. The lighting is bright and airy with a subtle teal-tinted background that matches a clean, glassmorphic UI aesthetic. High-quality digital photography with a soft bokeh effect." src="https://lh3.googleusercontent.com/aida-public/AB6AXuArZ7Fyq0q7Bh1LA07ZFt7u0DhQoFdS6BL-xYFOtZZrd7BSFNIfvGWhGG_EcYbxEgQzaZDKmiaZMj9CpZeaI-NkvVO3oDhrwgiR5qMCY36mkyjEkiiFn04UGq0idzL6btN_RGnhKg7pnYCny6Y8pcDKHRppg52xqrQaI0Ct5NSnKnYj3qNnZuP5-p5t3BTum2amCauOSaj4BXbq_A1OvQAUgY9S29iwvmGxBb9ap6aLQ7UJZcYTxD8JxiIA-6z9ry4arypqaqiW_g"/>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-[240px] pt-24 px-gutter pb-stack-lg min-h-screen">
+<div class="max-w-container-max mx-auto">
+<!-- Page Header -->
+<div class="mb-stack-lg flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<a class="flex items-center gap-1 text-primary font-label-md mb-2 hover:underline" href="#">
+<span class="material-symbols-outlined text-[18px]">arrow_back</span>
+  Back to Projects
+</a><h2 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">E-commerce API Tasks</h2>
+<p class="text-body-lg text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="calendar_today">calendar_today</span>
+<span id="current-date">October 24, 2023</span>
+</p>
+</div>
+<div class="flex gap-2">
+<div class="glass-card px-4 py-2 rounded-xl flex items-center gap-3">
+<div class="flex -space-x-2">
+<div class="w-6 h-6 rounded-full border-2 border-surface bg-primary/20 flex items-center justify-center text-[10px] font-bold">AR</div>
+<div class="w-6 h-6 rounded-full border-2 border-surface bg-secondary/20 flex items-center justify-center text-[10px] font-bold">JD</div>
+</div>
+<span class="text-label-md text-on-surface-variant font-semibold">Active Team: 8 members</span>
+</div>
+</div>
+</div>
+<!-- Bento Grid of Projects -->
+<div class="grid grid-cols-1 gap-gutter max-w-xl">
+<!-- Project Container: E-commerce API -->
+<section class="glass-card rounded-[16px] shadow-sm flex flex-col overflow-hidden group hover:shadow-md transition-shadow">
+<div class="p-stack-lg border-b border-outline-variant/10 bg-primary/5 flex justify-between items-center">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+</div>
+<div>
+<h3 class="font-title-lg text-title-lg text-on-surface">E-commerce API</h3>
+<p class="text-label-md text-on-surface-variant">Core Infrastructure • v2.4.0</p>
+</div>
+</div>
+<span class="bg-primary-container text-on-primary-container px-3 py-1 rounded-full text-label-md font-bold">High Priority</span>
+</div>
+<div class="p-stack-lg flex-1 space-y-4">
+<div class="space-y-3" id="ecommerce-tasks">
+<!-- Task Item -->
+<div class="flex items-center gap-3 p-3 rounded-lg border border-outline-variant/10 hover:bg-surface-container transition-colors task-row">
+<button class="w-6 h-6 rounded border-2 border-primary flex items-center justify-center transition-all hover:bg-primary/10" onclick="completeTask(this)">
+<span class="material-symbols-outlined text-[18px] text-primary hidden check-icon" data-icon="check">check</span>
+</button>
+<div class="flex-1">
+<p class="text-body-md font-semibold text-on-surface">Optimize checkout endpoint latency</p>
+<p class="text-label-md text-on-surface-variant">Reduce response time by 150ms</p>
+</div>
+<span class="text-label-md text-on-surface-variant opacity-50">#TASK-102</span>
+</div>
+<div class="flex items-center gap-3 p-3 rounded-lg border border-outline-variant/10 hover:bg-surface-container transition-colors task-row">
+<button class="w-6 h-6 rounded border-2 border-primary flex items-center justify-center transition-all hover:bg-primary/10" onclick="completeTask(this)">
+<span class="material-symbols-outlined text-[18px] text-primary hidden check-icon" data-icon="check">check</span>
+</button>
+<div class="flex-1">
+<p class="text-body-md font-semibold text-on-surface">Audit stripe webhooks integration</p>
+<p class="text-label-md text-on-surface-variant">Verify signature validation logic</p>
+</div>
+<span class="text-label-md text-on-surface-variant opacity-50">#TASK-105</span>
+</div>
+<div class="flex items-center gap-3 p-3 rounded-lg border border-outline-variant/10 hover:bg-surface-container transition-colors task-row">
+<button class="w-6 h-6 rounded border-2 border-primary flex items-center justify-center transition-all hover:bg-primary/10" onclick="completeTask(this)">
+<span class="material-symbols-outlined text-[18px] text-primary hidden check-icon" data-icon="check">check</span>
+</button>
+<div class="flex-1">
+<p class="text-body-md font-semibold text-on-surface">Database migration: cart_items schema</p>
+<p class="text-label-md text-on-surface-variant">Add 'discount_applied' column</p>
+</div>
+<span class="text-label-md text-on-surface-variant opacity-50">#TASK-108</span>
+</div>
+</div>
+<div class="pt-4 mt-4 border-t border-outline-variant/10">
+<label class="block text-label-md font-bold text-on-surface mb-2 uppercase tracking-tight">Status Update</label>
+<textarea class="w-full min-h-[100px] bg-surface-container-low border border-outline-variant/20 rounded-xl p-3 text-body-md focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all resize-none" placeholder="Provide status update or feedback for the team..."></textarea>
+<div class="mt-3 flex justify-end">
+<button class="bg-primary/10 text-primary hover:bg-primary hover:text-on-primary px-4 py-2 rounded-lg text-label-md font-bold transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="send">send</span> Submit Report
+                                </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Project Container: User Auth Service -->
+<!-- Project Container: Data Analytics Engine -->
+</div>
+</div>
+</main>
+<script>
+        // Set current date
+        const dateEl = document.getElementById('current-date');
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        dateEl.textContent = new Date().toLocaleDateString('en-US', options);
+
+        // Task completion logic
+        function completeTask(button) {
+            const taskRow = button.closest('.task-row');
+            const checkIcon = button.querySelector('.check-icon');
+            
+            // Visual feedback
+            button.classList.add('bg-primary');
+            button.classList.add('text-on-primary');
+            checkIcon.classList.remove('hidden');
+            
+            // Disable further interactions
+            button.disabled = true;
+            button.style.pointerEvents = 'none';
+            taskRow.classList.add('task-completed');
+            
+            // Subtle sound or animation effect could go here
+            const ripple = document.createElement('div');
+            ripple.className = 'absolute inset-0 bg-primary/20 rounded-lg animate-ping pointer-events-none';
+            taskRow.appendChild(ripple);
+            setTimeout(() => ripple.remove(), 500);
+        }
+
+        // Micro-interaction for textareas
+        document.querySelectorAll('textarea').forEach(area => {
+            area.addEventListener('focus', () => {
+                area.closest('section').classList.add('shadow-lg');
+            });
+            area.addEventListener('blur', () => {
+                area.closest('section').classList.remove('shadow-lg');
+            });
+        });
+    </script>
+</body></html>

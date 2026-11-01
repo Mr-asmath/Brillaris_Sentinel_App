@@ -1,0 +1,9 @@
+Brillaris Sentinel
+
+<17/08/2026>
+
+in employee page in projects in task are display first morning and evening containers show to click move a new page for display the task of that time, the task is display like order wise in leftside task name that right side display the assign status(normal task, immedent task),status(completed, not completed), checkbox(tick for completed), report message. the task have individual background colors not complete task as normal white color, completed task in green color, immedent task in red color and over reached  time duration display on dark red color. in maintain this order immedent is top then time over task -> normal task -> completed task. to add the save button on top rightside for tick the checkout to click save button to save to ticked checkout button is disable for save on task completed part, and allow to tick only not completed task, and duration time is completed not allow to tick, the duration is reached automatically save it.
+
+to remove the "Monitoring Templates" in all users.
+
+team -

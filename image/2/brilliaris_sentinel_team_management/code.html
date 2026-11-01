@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Team Management | Brilliaris Sentinel</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-dim": "#d8dadc",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "on-primary-container": "#7c839b",
+                        "outline-variant": "#c6c6cd",
+                        "on-background": "#191c1e",
+                        "inverse-surface": "#2d3133",
+                        "on-secondary-fixed": "#001a42",
+                        "surface-container-high": "#e6e8ea",
+                        "inverse-on-surface": "#eff1f3",
+                        "surface-container-low": "#f2f4f6",
+                        "secondary-fixed": "#d8e2ff",
+                        "tertiary-fixed-dim": "#b7c8e1",
+                        "on-tertiary-container": "#75859d",
+                        "surface-container-lowest": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "secondary-container": "#2170e4",
+                        "on-primary": "#ffffff",
+                        "tertiary": "#000000",
+                        "on-surface": "#191c1e",
+                        "secondary": "#0058be",
+                        "on-tertiary-fixed-variant": "#38485d",
+                        "surface-bright": "#f7f9fb",
+                        "on-secondary-container": "#fefcff",
+                        "on-primary-fixed": "#131b2e",
+                        "on-error-container": "#93000a",
+                        "error": "#ba1a1a",
+                        "secondary-fixed-dim": "#adc6ff",
+                        "on-tertiary": "#ffffff",
+                        "surface-variant": "#e0e3e5",
+                        "primary-fixed-dim": "#bec6e0",
+                        "on-secondary-fixed-variant": "#004395",
+                        "tertiary-container": "#0b1c30",
+                        "surface-tint": "#565e74",
+                        "primary-fixed": "#dae2fd",
+                        "tertiary-fixed": "#d3e4fe",
+                        "on-error": "#ffffff",
+                        "primary": "#000000",
+                        "on-secondary": "#ffffff",
+                        "background": "#f7f9fb",
+                        "surface": "#f7f9fb",
+                        "on-surface-variant": "#45464d",
+                        "surface-container": "#eceef0",
+                        "outline": "#76777d",
+                        "primary-container": "#131b2e",
+                        "surface-container-highest": "#e0e3e5",
+                        "inverse-primary": "#bec6e0",
+                        "on-tertiary-fixed": "#0b1c30"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "gutter": "24px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "40px",
+                        "container-max": "1280px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["IBM Plex Sans"],
+                        "display-lg-mobile": ["IBM Plex Sans"],
+                        "body-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-md": ["JetBrains Mono"],
+                        "display-lg": ["IBM Plex Sans"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "500"}],
+                        "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #f7f9fb;
+            color: #191c1e;
+            -webkit-font-smoothing: antialiased;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        .sidebar-active {
+            background-color: #d8e2ff;
+            color: #001a42;
+            font-weight: 700;
+            border-radius: 0.5rem;
+        }
+        /* Custom scrollbar for data tables */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #c6c6cd;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="font-body-md">
+<!-- TopNavBar -->
+<header class="sticky top-0 z-50 flex items-center justify-between px-margin-desktop h-16 w-full bg-surface/80 dark:bg-surface-container/80 backdrop-blur-lg border-b border-outline-variant/30 shadow-sm">
+<div class="flex items-center gap-6">
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-on-primary-fixed">Brilliaris Sentinel</span>
+<div class="hidden md:flex items-center bg-surface-container-low px-4 py-2 rounded-full border border-outline-variant/30">
+<span class="material-symbols-outlined text-outline text-sm mr-2">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-sm w-64 outline-none" placeholder="Search team members..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full hover:bg-surface-container-low dark:hover:bg-on-primary-fixed-variant/10 transition-colors active:scale-95 duration-200 cursor-pointer">
+<span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+</button>
+<div class="h-8 w-8 rounded-full overflow-hidden border border-outline-variant/30">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a senior security officer with a clean, high-contrast aesthetic. The lighting is sophisticated, with soft directional light against a minimal, blurred office background. The overall mood is focused and elite, fitting an enterprise security environment with a crisp blue and white color palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJUSJ7araHWs4tJRjeWJpG6jRZydnkdSP_nzJubPdrPAGkUiHtRw4Rg4dxxPLI6YqgZSecJPINBsmvZi-UuLU0Cx_YH0AOatlxke-oU-ogAIet5OnGKn-F01hctC8fIRyeZ216b3OkEB46fl9EZsoaKJwgHD8_AZNREDZk7Vp6CGQo7_JkpVqvPIgbMD7pS_UPhIKCGGoLszxO9GxLEyYRH4Us2kkg5j72UTIArEjlqGkpe9Ehk3J7pyiKfR1TNn5soTYTw01Yxw"/>
+</div>
+</div>
+</header>
+<div class="flex min-h-[calc(100vh-64px)]">
+<!-- SideNavBar -->
+<aside class="hidden md:flex flex-col gap-unit p-4 bg-surface dark:bg-surface-container-low h-[calc(100vh-64px)] w-64 fixed left-0 border-r border-outline-variant/30">
+<div class="mb-8 px-2">
+<p class="font-label-md text-label-md text-on-surface-variant/60 uppercase tracking-widest">Navigation</p>
+</div>
+<nav class="space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline hover:bg-surface-container-highest/50 rounded-xl transition-all duration-300 ease-in-out font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+                    Dashboard
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline hover:bg-surface-container-highest/50 rounded-xl transition-all duration-300 ease-in-out font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">folder_shared</span>
+                    Projects
+                </a>
+<!-- Team is Active -->
+<a class="flex items-center gap-3 px-4 py-3 bg-secondary-fixed text-on-secondary-fixed font-bold rounded-xl transition-all duration-300 ease-in-out font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">group</span>
+                    Team
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline hover:bg-surface-container-highest/50 rounded-xl transition-all duration-300 ease-in-out font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">mail</span>
+                    Messages
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline hover:bg-surface-container-highest/50 rounded-xl transition-all duration-300 ease-in-out font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">settings</span>
+                    Settings
+                </a>
+</nav>
+<div class="mt-auto p-4 glass-card rounded-xl border border-outline-variant/20">
+<div class="flex items-center gap-3 mb-2">
+<div class="w-2 h-2 bg-secondary rounded-full animate-pulse"></div>
+<span class="font-label-md text-label-md font-bold">Sentinel Active</span>
+</div>
+<p class="text-[10px] text-outline leading-tight">All systems operational. No unauthorized access attempts in the last 24h.</p>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 md:ml-64 p-8 md:p-margin-desktop bg-background min-w-0">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
+<div>
+<h1 class="font-display-lg text-display-lg-mobile md:text-display-lg text-primary tracking-tight">Team Management</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">Manage security protocols, access levels, and architectural roles for the Sentinel team.</p>
+</div>
+<button class="flex items-center justify-center gap-2 px-6 py-3 bg-primary text-on-primary font-bold font-body-sm rounded-lg hover:bg-tertiary transition-all shadow-md active:scale-95 group" onclick="openInviteModal()">
+<span class="material-symbols-outlined text-sm transition-transform group-hover:rotate-90">add</span>
+                    Invite Member
+                </button>
+</div>
+<!-- Team Stats Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter mb-12">
+<div class="p-6 bg-white border border-outline-variant rounded-xl shadow-sm hover:shadow-md transition-shadow">
+<p class="font-label-md text-label-md text-outline uppercase tracking-wider mb-2">Total Personnel</p>
+<div class="flex items-baseline gap-2">
+<span class="font-display-lg text-display-lg-mobile text-primary">24</span>
+<span class="text-secondary font-label-md">+2 this month</span>
+</div>
+</div>
+<div class="p-6 bg-white border border-outline-variant rounded-xl shadow-sm hover:shadow-md transition-shadow border-l-4 border-l-secondary">
+<p class="font-label-md text-label-md text-outline uppercase tracking-wider mb-2">Active Sessions</p>
+<div class="flex items-baseline gap-2">
+<span class="font-display-lg text-display-lg-mobile text-primary">18</span>
+<span class="text-on-surface-variant font-label-md">/ 24 online</span>
+</div>
+</div>
+<div class="p-6 bg-white border border-outline-variant rounded-xl shadow-sm hover:shadow-md transition-shadow">
+<p class="font-label-md text-label-md text-outline uppercase tracking-wider mb-2">Access Requests</p>
+<div class="flex items-baseline gap-2">
+<span class="font-display-lg text-display-lg-mobile text-primary">0</span>
+<span class="text-outline font-label-md">Security Clear</span>
+</div>
+</div>
+</div>
+<!-- Bento Layout Content -->
+<div class="grid grid-cols-12 gap-gutter">
+<!-- Main Member Table (Large Area) -->
+<div class="col-span-12 lg:col-span-12 bg-white border border-outline-variant rounded-xl overflow-hidden shadow-sm">
+<div class="p-6 border-b border-outline-variant flex items-center justify-between">
+<h2 class="font-headline-md text-headline-md text-primary">Sentinel Operators</h2>
+<div class="flex gap-2">
+<button class="px-4 py-2 font-label-md text-label-md bg-surface-container-low text-on-surface-variant rounded-lg hover:bg-surface-container-high transition-colors">Filters</button>
+<button class="px-4 py-2 font-label-md text-label-md bg-surface-container-low text-on-surface-variant rounded-lg hover:bg-surface-container-high transition-colors">Export CSV</button>
+</div>
+</div>
+<div class="overflow-x-auto custom-scrollbar">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-lowest border-b border-outline-variant">
+<th class="p-6 font-label-md text-label-md text-outline uppercase">Member</th>
+<th class="p-6 font-label-md text-label-md text-outline uppercase">Role</th>
+<th class="p-6 font-label-md text-label-md text-outline uppercase">Status</th>
+<th class="p-6 font-label-md text-label-md text-outline uppercase">Access Level</th>
+<th class="p-6 font-label-md text-label-md text-outline uppercase text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/30">
+<!-- Member Row 1 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="p-6">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-secondary-fixed">
+<img class="w-full h-full object-cover" data-alt="A portrait of a male tech professional with glasses, looking intelligent and focused. The image has a clean corporate aesthetic with a neutral gray background and blue accent lighting, reflecting a modern cybersecurity firm vibe. The shot is high-resolution with crisp details." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVdQn7YlPaDTf62K_YIB97VQ4QwX1Va9G8BCrOd3YjKRlJCImyV-aZEGe_AOUD7YiBrXKs8z5JqxuqhjCZeOffqUo6Tfu97n23PjDLM2xWAdwdeIOWfjrgzdVzw1SztfCp-z8J6OWYMOQ6meLG97mFu9b7S7f94C1Zu62g1gX73189idvWwawhaMKvph_CyYlWiUxJ0RwQceFsWkRrJrUYJ_RQ8Dc6aCE20V23otIN1Zm-MPNBY2pZ4YGCrvHdc33vzMCsYjMoCA"/>
+</div>
+<div>
+<p class="font-body-md font-bold text-on-surface">Elias Vance</p>
+<p class="text-[12px] text-outline font-label-md">elias.v@brilliaris.com</p>
+</div>
+</div>
+</td>
+<td class="p-6">
+<span class="font-label-md text-[11px] px-2 py-1 bg-primary-container text-on-primary-fixed rounded-full">Security Architect</span>
+</td>
+<td class="p-6">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 bg-green-500 rounded-full"></div>
+<span class="font-label-md text-label-md text-on-surface">Online</span>
+</div>
+</td>
+<td class="p-6">
+<div class="flex items-center gap-1 font-label-md text-label-md text-secondary">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+                                            Level 5 (Full)
+                                        </div>
+</td>
+<td class="p-6 text-right">
+<button class="p-2 hover:bg-surface-container-high rounded-full transition-colors text-outline">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Member Row 2 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="p-6">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-primary-fixed-dim">
+<img class="w-full h-full object-cover" data-alt="A portrait of a female software engineer with a confident smile. She has a sleek, modern look, wearing minimalist attire. The background is a clean, architectural white space with soft blue shadows. High-end editorial lighting, corporate professional style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-284UQWM6K92JPlCVLHAQz1WojkfZHntvwzoF2CHdMSZrmkzfvOIorHqloCHX-2zLm-yNxaBJLBkbCBWUODj9J_Da-6dnPJZyG88UOVzj4gqFHvBOtsfnmx5X7DgkX6kKndsR1SqZ1SGkJnMpliIopR7cGIkFzs1SU1PsIcOMncir2RLIP7-zbrDsmDzRIBf2lNERvYG1PyM_Vylf1bL5q5cw7ykrm6wPJdkta0txRvUXGoFzetEkXt1YfeWnPRQfjI-9fRZ29w"/>
+</div>
+<div>
+<p class="font-body-md font-bold text-on-surface">Sarah Chen</p>
+<p class="text-[12px] text-outline font-label-md">s.chen@brilliaris.com</p>
+</div>
+</div>
+</td>
+<td class="p-6">
+<span class="font-label-md text-[11px] px-2 py-1 bg-secondary-container text-on-secondary-container rounded-full">Admin</span>
+</td>
+<td class="p-6">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 bg-amber-400 rounded-full"></div>
+<span class="font-label-md text-label-md text-on-surface">Away</span>
+</div>
+</td>
+<td class="p-6">
+<div class="flex items-center gap-1 font-label-md text-label-md text-secondary">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+                                            Level 5 (Full)
+                                        </div>
+</td>
+<td class="p-6 text-right">
+<button class="p-2 hover:bg-surface-container-high rounded-full transition-colors text-outline">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Member Row 3 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="p-6">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-tertiary-fixed">
+<img class="w-full h-full object-cover" data-alt="A portrait of a male professional in his late 20s, with a sharp and efficient demeanor. He is looking slightly away from the camera. The image is styled with high-key lighting, soft white and cool blue tones, suggesting a high-tech, elite security environment. Studio quality photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPMwAp0gBM-J4L2jiIl4zd1drY1I27kldEqTdBtXIVWka-gl2qqAoPDDorhoOk30xtONIwgrJaDeUUvtNBWqeh9clBuLTC7lxbpNItqyuKRjJKgodB0jSANhL3oAXeVZRGSMB1WwDDruoP3gv_8-cKLlcFGNdiZeZofX_8ZWR2EvnuN61U0SVP1Bv0gbMl5NRvduBp07qdM07VkrhOGK3PPZR3fCyp5A5oFX2qYQZeap-lekFi4jiTP1Fdigk4LrcWJ3fajMzV1A"/>
+</div>
+<div>
+<p class="font-body-md font-bold text-on-surface">Marcus Thorne</p>
+<p class="text-[12px] text-outline font-label-md">m.thorne@brilliaris.com</p>
+</div>
+</div>
+</td>
+<td class="p-6">
+<span class="font-label-md text-[11px] px-2 py-1 bg-surface-variant text-on-surface-variant rounded-full">DevOps</span>
+</td>
+<td class="p-6">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 bg-green-500 rounded-full"></div>
+<span class="font-label-md text-label-md text-on-surface">Online</span>
+</div>
+</td>
+<td class="p-6">
+<div class="flex items-center gap-1 font-label-md text-label-md text-outline">
+<span class="material-symbols-outlined text-sm">shield</span>
+                                            Level 3 (Restricted)
+                                        </div>
+</td>
+<td class="p-6 text-right">
+<button class="p-2 hover:bg-surface-container-high rounded-full transition-colors text-outline">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Member Row 4 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="p-6">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-secondary-fixed-dim">
+<img class="w-full h-full object-cover" data-alt="A portrait of a diverse female security analyst with a sharp, professional look. The background is a dark, sleek data center blurred in the distance. The lighting highlights her face with a cool blue tint, emphasizing a high-tech corporate atmosphere. Minimalist and elite." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBUX6nZL4aEuqKgIjRcNkvGhYIgG4IF6JlC9KPtSUU1_hRxwuVC2QmrkrtphUjgqno_Mqga-abjj_PxIm6pkPPwDRRB7UwgeWXU8FvM3rDUrFN3FlZv_gL8yjEkromNQ3Qo0J59HQqsioJ7B6kor24nHc7PqYerv3F4xCrf_x8stKctx88fki250_rxQRyRBnKZ1FCBvSAQvK1n2MSrJqDkMKl2ZbYDN-Or0zkWQ0hrtrYxcGevrLq6xIt-mFMF3-ESg1j18RkCQ"/>
+</div>
+<div>
+<p class="font-body-md font-bold text-on-surface">Julia Kim</p>
+<p class="text-[12px] text-outline font-label-md">j.kim@brilliaris.com</p>
+</div>
+</div>
+</td>
+<td class="p-6">
+<span class="font-label-md text-[11px] px-2 py-1 bg-primary-container text-on-primary-fixed rounded-full">Security Architect</span>
+</td>
+<td class="p-6">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 bg-green-500 rounded-full"></div>
+<span class="font-label-md text-label-md text-on-surface">Online</span>
+</div>
+</td>
+<td class="p-6">
+<div class="flex items-center gap-1 font-label-md text-label-md text-outline">
+<span class="material-symbols-outlined text-sm">shield</span>
+                                            Level 4 (Standard)
+                                        </div>
+</td>
+<td class="p-6 text-right">
+<button class="p-2 hover:bg-surface-container-high rounded-full transition-colors text-outline">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-4 border-t border-outline-variant bg-surface-container-lowest flex items-center justify-between font-label-md text-label-md text-outline">
+<span>Showing 4 of 24 members</span>
+<div class="flex gap-4">
+<button class="hover:text-primary transition-colors">Previous</button>
+<div class="flex gap-2">
+<span class="w-8 h-8 flex items-center justify-center bg-primary text-on-primary rounded font-bold">1</span>
+<span class="w-8 h-8 flex items-center justify-center hover:bg-surface-container-low rounded cursor-pointer">2</span>
+<span class="w-8 h-8 flex items-center justify-center hover:bg-surface-container-low rounded cursor-pointer">3</span>
+</div>
+<button class="hover:text-primary transition-colors">Next</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Invite Modal (Hidden by default) -->
+<div class="fixed inset-0 z-[100] hidden" id="inviteModal">
+<div class="absolute inset-0 bg-on-background/40 backdrop-blur-sm" onclick="closeInviteModal()"></div>
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-md bg-surface p-8 rounded-xl shadow-2xl border border-outline-variant">
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-headline-md text-headline-md text-primary">Invite Team Member</h3>
+<button class="p-1 hover:bg-surface-container-high rounded-full" onclick="closeInviteModal()">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<form class="space-y-6" onsubmit="event.preventDefault(); closeInviteModal();">
+<div>
+<label class="block font-label-md text-label-md text-outline uppercase mb-2">Email Address</label>
+<input class="w-full bg-surface-container-low border border-outline-variant rounded-lg px-4 py-3 focus:ring-2 focus:ring-secondary focus:border-transparent outline-none transition-all font-body-sm" placeholder="e.g. recruit@brilliaris.com" type="email"/>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="block font-label-md text-label-md text-outline uppercase mb-2">Role</label>
+<select class="w-full bg-surface-container-low border border-outline-variant rounded-lg px-4 py-3 focus:ring-2 focus:ring-secondary focus:border-transparent outline-none transition-all font-body-sm">
+<option>Security Architect</option>
+<option>DevOps</option>
+<option>Admin</option>
+</select>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-outline uppercase mb-2">Access Level</label>
+<select class="w-full bg-surface-container-low border border-outline-variant rounded-lg px-4 py-3 focus:ring-2 focus:ring-secondary focus:border-transparent outline-none transition-all font-body-sm">
+<option>Level 1</option>
+<option>Level 3</option>
+<option>Level 5</option>
+</select>
+</div>
+</div>
+<div class="pt-4">
+<button class="w-full py-4 bg-secondary text-on-secondary font-bold rounded-lg hover:bg-on-secondary-fixed-variant transition-all shadow-lg" type="submit">Send Invitation</button>
+<p class="text-center text-[11px] text-outline mt-4 font-label-md">An encrypted security invite will be sent to the recipient's primary email.</p>
+</div>
+</form>
+</div>
+</div>
+<script>
+        function openInviteModal() {
+            const modal = document.getElementById('inviteModal');
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeInviteModal() {
+            const modal = document.getElementById('inviteModal');
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Escape key to close modal
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeInviteModal();
+        });
+    </script>
+</body></html>

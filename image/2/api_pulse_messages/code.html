@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>API Pulse | Messages</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(189, 201, 198, 0.2);
+        }
+        .message-gradient-sent {
+            background: linear-gradient(135deg, #0f766e 0%, #005c55 100%);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #bdc9c6;
+            border-radius: 10px;
+        }
+        .status-pulse {
+            position: relative;
+        }
+        .status-pulse::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #4fdbc8;
+            border-radius: 50%;
+            bottom: 0;
+            right: 0;
+            border: 2px solid white;
+            animation: pulse-ring 2s infinite;
+        }
+        @keyframes pulse-ring {
+            0% { transform: scale(0.8); opacity: 0.8; }
+            50% { transform: scale(1.2); opacity: 0.4; }
+            100% { transform: scale(0.8); opacity: 0.8; }
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-bright": "#f8f9ff",
+                        "surface-tint": "#006a63",
+                        "on-tertiary-container": "#bef3ff",
+                        "secondary-fixed-dim": "#4fdbc8",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed-variant": "#004e5a",
+                        "on-secondary": "#ffffff",
+                        "surface-variant": "#d3e4fe",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface-variant": "#3e4947",
+                        "outline": "#6e7977",
+                        "surface-container-low": "#eff4ff",
+                        "secondary-fixed": "#71f8e4",
+                        "tertiary": "#005a66",
+                        "surface-dim": "#cbdbf5",
+                        "on-secondary-fixed": "#00201c",
+                        "on-primary": "#ffffff",
+                        "inverse-on-surface": "#eaf1ff",
+                        "primary-fixed": "#9cf2e8",
+                        "tertiary-fixed-dim": "#2fd9f4",
+                        "on-primary-container": "#a3faef",
+                        "on-error-container": "#93000a",
+                        "inverse-surface": "#213145",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed": "#a2eeff",
+                        "surface-container": "#e5eeff",
+                        "on-primary-fixed": "#00201d",
+                        "primary": "#005c55",
+                        "on-background": "#0b1c30",
+                        "primary-fixed-dim": "#80d5cb",
+                        "inverse-primary": "#80d5cb",
+                        "outline-variant": "#bdc9c6",
+                        "on-tertiary-fixed": "#001f25",
+                        "on-secondary-container": "#006f64",
+                        "surface-container-high": "#dce9ff",
+                        "error": "#ba1a1a",
+                        "secondary-container": "#6df5e1",
+                        "secondary": "#006b5f",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-container": "#007484",
+                        "primary-container": "#0f766e",
+                        "on-secondary-fixed-variant": "#005048",
+                        "background": "#f8f9ff",
+                        "on-primary-fixed-variant": "#00504a",
+                        "surface": "#f8f9ff",
+                        "surface-container-highest": "#d3e4fe",
+                        "on-surface": "#0b1c30"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "margin-page": "32px",
+                        "stack-sm": "8px",
+                        "stack-lg": "24px",
+                        "container-max": "1440px",
+                        "stack-md": "16px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "mono-md": ["JetBrains Mono"],
+                        "headline-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "title-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "display-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "mono-md": ["13px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "title-lg": ["18px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-surface-bright text-on-surface font-body-md overflow-hidden">
+<!-- Sidebar Component (Predicted & Customized) -->
+<aside class="w-[240px] h-screen fixed left-0 top-0 flex flex-col py-stack-lg px-stack-md bg-surface-container-low/70 backdrop-blur-xl border-r border-outline-variant/10 z-50">
+<div class="mb-stack-lg px-2 flex items-center gap-3">
+<div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined text-[20px]" data-weight="fill">hub</span>
+</div>
+<div>
+<h1 class="font-headline-md text-[18px] font-bold text-primary leading-none">API Pulse</h1>
+<span class="text-label-md text-on-surface-variant/70">Enterprise Plan</span>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<!-- Active Tab: Messages (Logic applied: Intent mapping to Dashboard-level utility) -->
+<a class="flex items-center gap-3 px-3 py-2 text-primary font-bold bg-primary-container/20 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-body-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high hover:text-primary transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="font-body-md">Projects</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high hover:text-primary transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-body-md">Team</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high hover:text-primary transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span class="font-body-md">Reports</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high hover:text-primary transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-body-md">Settings</span>
+</a>
+</nav>
+<div class="mt-auto space-y-1 pt-stack-lg border-t border-outline-variant/10">
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high hover:text-primary transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span class="font-body-md">Help</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high hover:text-primary transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span class="font-body-md">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Messaging Workspace -->
+<main class="ml-[240px] h-screen flex flex-col bg-surface-bright relative">
+<!-- Top Navigation Bar -->
+<header class="h-16 flex justify-between items-center px-gutter w-full z-40 bg-surface/70 backdrop-blur-md border-b border-outline-variant/10">
+<div class="flex items-center gap-4">
+<h2 class="font-title-lg text-on-surface">Messaging</h2>
+<div class="h-4 w-[1px] bg-outline-variant/30"></div>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 bg-secondary-fixed-dim rounded-full"></span>
+<span class="text-label-md text-on-surface-variant font-medium">4 Active Members</span>
+</div>
+</div>
+<div class="flex items-center gap-stack-md">
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-on-surface-variant/50 text-[20px]" data-icon="search">search</span>
+<input class="bg-surface-container-low border-none rounded-full pl-10 pr-4 py-1.5 text-body-md w-64 focus:ring-2 focus:ring-primary/20 placeholder:text-on-surface-variant/40 transition-all" placeholder="Search across messages..." type="text"/>
+</div>
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full border border-surface"></span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container-high border border-outline-variant/20">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a developer in a modern tech office setting, soft natural lighting, high-end photography style, clean background, neutral tones, 8k resolution." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA41EoEkjA-aRA_iWYc4NjgLnuxvfFOhzqGb5Z-uzT3-etfHhZxb9Jfs5okWoA23SoFxIkgbYpb-OcBS0cmoaDCrM2GtMM8ztFzg42Fq61hV8QicDaflu5c1AXZa5WhJrVXdvuXl5f7if5vuLSw5aatqOPDLZ2wgKaE7LdM_4NEM90I7zpCFPe5Z0WtgTS-HcMOuIrKku9oyh29WVRlzar_520oQOn4EZ4bROD-dNijIaDojsdDrBkdICwqjSzjhCODEhCJBrq4HQ"/>
+</div>
+</div>
+</header>
+<!-- Messaging Layout -->
+<section class="flex-1 flex overflow-hidden">
+<!-- Left Pane: Conversation List -->
+<div class="w-80 border-r border-outline-variant/10 flex flex-col bg-surface-container-lowest/40 backdrop-blur-sm">
+<div class="p-4">
+<div class="flex gap-2">
+<button class="flex-1 px-4 py-2 bg-primary text-on-primary text-label-md font-bold rounded-lg flex items-center justify-center gap-2 hover:opacity-90 transition-all active:scale-95">
+<span class="material-symbols-outlined text-[18px]" data-icon="add">add</span>
+                            New Message
+                        </button>
+<button class="p-2 border border-outline-variant/30 rounded-lg hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="filter_list">filter_list</span>
+</button>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto custom-scrollbar">
+<!-- Conversation Items -->
+<div class="group px-4 py-3 bg-primary-container/10 border-l-4 border-primary cursor-pointer hover:bg-primary-container/20 transition-all">
+<div class="flex gap-3">
+<div class="w-11 h-11 rounded-full bg-surface-container-high status-pulse">
+<img class="w-full h-full rounded-full object-cover" data-alt="A portrait of Sarah Chen, a professional female administrator in her 30s with a friendly expression, wearing modern business-casual attire, minimalist workspace background, soft cinematic lighting, teal and white color accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_mP5Bttfx8i9n6Vyctzn8_aV2mnM_d-_Ao3Tb2vPpUJQyHdTXppv2kM9lgsEVN3_KVzuOkMDjUytueHW4raoKirCUTDMA8LB7C2rS5gbcUDr9wrRKw3Ue94dUc0OtcQyqfU7zGeSZ9eiO8N2kPvExNYXOEJvGSByH65LgStnCfcfqDKoDlEvpz2pL_kuXTxBS4zAfymLP5iyoElMLE-Q1044LfAtz3XjGlARMBdWMatq82HSYEPaHXLeRR5OuZ_2Vs8dW7VTgxg"/>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-baseline">
+<h4 class="text-body-md font-bold text-on-surface truncate">Sarah Chen (Admin)</h4>
+<span class="text-[11px] text-on-surface-variant font-medium">10:42 AM</span>
+</div>
+<p class="text-label-md text-primary font-semibold truncate mt-0.5">The production API keys have been...</p>
+</div>
+</div>
+</div>
+<div class="px-4 py-3 cursor-pointer hover:bg-surface-container-low transition-all">
+<div class="flex gap-3">
+<div class="w-11 h-11 rounded-full bg-surface-container-high">
+<img class="w-full h-full rounded-full object-cover" data-alt="Portrait of Marcus Thorne, a senior DevOps engineer, middle-aged, wearing a dark hoodie, professional studio lighting with subtle blue and teal rim lights, high-tech office background blurred, 8k resolution." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8KbWg_mth_DQtKP-UKO2oCvE2c7NYglOxQiXAyLRMidJtB11IsOnE63_mcqytUvPOholvhfhh2WQ2CJyIDbmYsLyLXI-mNMviwDCEj18MzF4p3S8QPRaOEFwqiLQoPHbtiB3QCniy9ThzoDSrlQS-gAEzNbl6brLAeXZCsschbFD_kolX6Rzk6FXd91trmsnn8LZ-F3yUecbI1E4wazdhVV5fN_m44dGdipPuMztd1UQALuaZ2VYKi4PLnqkQmRh0ZbtGfyTLGg"/>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-baseline">
+<h4 class="text-body-md font-semibold text-on-surface truncate">Marcus Thorne</h4>
+<span class="text-[11px] text-on-surface-variant font-medium">Yesterday</span>
+</div>
+<p class="text-label-md text-on-surface-variant truncate mt-0.5">Did you check the latency logs for the new node?</p>
+</div>
+</div>
+</div>
+<div class="px-4 py-3 cursor-pointer hover:bg-surface-container-low transition-all">
+<div class="flex gap-3">
+<div class="w-11 h-11 rounded-full bg-surface-container-high">
+<div class="w-full h-full flex items-center justify-center bg-tertiary-fixed text-on-tertiary-fixed font-bold rounded-full">HR</div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-baseline">
+<h4 class="text-body-md font-semibold text-on-surface truncate">HR Portal</h4>
+<span class="text-[11px] text-on-surface-variant font-medium">Wed</span>
+</div>
+<p class="text-label-md text-on-surface-variant truncate mt-0.5">Your quarterly performance review is ready for signature.</p>
+</div>
+</div>
+</div>
+<div class="px-4 py-3 cursor-pointer hover:bg-surface-container-low transition-all">
+<div class="flex gap-3">
+<div class="w-11 h-11 rounded-full bg-surface-container-high">
+<img class="w-full h-full rounded-full object-cover" data-alt="Portrait of Alex Rivera, a young software developer, vibrant and professional energy, wearing a simple white t-shirt, brightly lit modern tech office with large windows, bright light mode aesthetic, high clarity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYrdGuMCoDzxhXaZgwzBuataxDvu0bD4uWH1tozs076kx3e2Lquc41VhTbtbE_xB-sucqsL7RTroIPF8UxXbtBG4PbXtTEPOxW1RPT3GzQ_08cnG_cENtg69GojxHmgSMeGCmv1nYMuNQlszBFmwBJ2TsSFUXMZ6mJqCbXG8Tlq7fjZN_XsnC7FpA-PJHtKpMUm5kMCr8ftTyq3e7aF6z14PEg8FGDG4xkHu12hFAkep86Pdv8roV-WKQ9l2YKng270KmEEw7Ksg"/>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-baseline">
+<h4 class="text-body-md font-semibold text-on-surface truncate">Alex Rivera</h4>
+<span class="text-[11px] text-on-surface-variant font-medium">May 12</span>
+</div>
+<p class="text-label-md text-on-surface-variant truncate mt-0.5">Let's sync up on the GraphQL migration.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Pane: Active Chat -->
+<div class="flex-1 flex flex-col relative overflow-hidden">
+<!-- Chat Header -->
+<div class="h-16 px-gutter flex items-center justify-between glass-card border-b border-outline-variant/10 z-30">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full status-pulse">
+<img class="w-full h-full rounded-full object-cover" data-alt="A portrait of Sarah Chen, professional female administrator, close-up, soft studio lighting, sharp focus on eyes, clean minimalist background with teal accents, professional corporate style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3T7bz08Q_5iTDEeud-NoINvf6FixzvNwNVlVbyBup78Lw55o4n7ez2jm9yDx_kvAbmLWnqumgaY_wA-mlPteNHXs71aXFHI-oeBS-Y3EKVLnLmQ1_6m-zE0o8BUWv3nbrnS35zmctM9gHYk9eTi--bK6T5i8kR0iv4OPkuulYdJr7Efz0jawu2GJ8MD7QnVvOUrokAQUFnhjX8OX2BObg5e7E9VM5q7nTqZmLv53zlZfWu9oJFdxad-5GP-E9QxQemAMCNVzyRQ"/>
+</div>
+<div>
+<h3 class="text-body-lg font-bold text-on-surface">Sarah Chen (Admin)</h3>
+<span class="text-label-md text-secondary font-medium">Online now</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="videocam">videocam</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="call">call</span>
+</button>
+<div class="w-[1px] h-6 bg-outline-variant/30 mx-1"></div>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="info">info</span>
+</button>
+</div>
+</div>
+<!-- Chat Messages Area -->
+<div class="flex-1 overflow-y-auto p-gutter space-y-6 custom-scrollbar bg-[radial-gradient(#bdc9c6_1px,transparent_1px)] [background-size:20px_20px] bg-fixed">
+<div class="flex justify-center my-4">
+<span class="px-3 py-1 bg-surface-container-high/80 backdrop-blur-sm rounded-full text-[11px] font-bold text-on-surface-variant uppercase tracking-wider">Today</span>
+</div>
+<!-- Received Message -->
+<div class="flex gap-3 max-w-[80%]">
+<div class="w-8 h-8 rounded-full bg-surface-container-high mt-1 shrink-0">
+<img class="w-full h-full rounded-full object-cover" data-alt="Portrait of Sarah Chen, small avatar style, professional lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCIom06ITrTtddkfc6a0pz7_WddDOUC-3ovkWOa_Ah_Kp_GHrHNWFbHBEBnKg2liH3WUl_5lorYwplB9YrQvl33ac-VUYHEKw3sdjnwcN52Om6jLyrZYSf7M91YkEKEGtyje880vaNw23TFX7CNcmgqpZdNGKVuR0PqCiT89L6grKWQaxXCoQsmNryxQI43ma5VRSrKkUwbkdWqj8DSU6DSx7LgYhGzFL8F16hoKg9U-cobbQ97-3uN4h7B3Njv5b9PzWqBHl2Rpw"/>
+</div>
+<div class="space-y-1">
+<div class="bg-surface-container-lowest glass-card px-4 py-2.5 rounded-2xl rounded-tl-none shadow-sm text-on-surface leading-relaxed">
+                                Hey there! I've just updated the API environment variables for the Pulse-Beta project. You should have access now.
+                            </div>
+<span class="text-[10px] text-on-surface-variant/60 ml-1">10:38 AM</span>
+</div>
+</div>
+<!-- Sent Message -->
+<div class="flex flex-row-reverse gap-3 max-w-[80%] ml-auto">
+<div class="space-y-1 items-end flex flex-col">
+<div class="message-gradient-sent px-4 py-2.5 rounded-2xl rounded-tr-none shadow-md text-white leading-relaxed">
+                                Awesome, thanks Sarah. I was just about to ask about those. Do they include the new rate-limiting headers?
+                            </div>
+<div class="flex items-center gap-1">
+<span class="text-[10px] text-on-surface-variant/60">10:40 AM</span>
+<span class="material-symbols-outlined text-[14px] text-primary" data-icon="done_all">done_all</span>
+</div>
+</div>
+</div>
+<!-- Received Message with Code Snippet -->
+<div class="flex gap-3 max-w-[80%]">
+<div class="w-8 h-8 rounded-full bg-surface-container-high mt-1 shrink-0">
+<img class="w-full h-full rounded-full object-cover" data-alt="Portrait of Sarah Chen, small avatar style, professional lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDetzY8tHcu-_IhUHiPhtkDCZh8xYe_bbndS21s6SukpeCxFaYKc_TumHilrSKddZK78kdg8a0RGsFZngwhXmPtEqYkNmENxg66Bez9FisQnMF7igjPPOvufwvlXg__V-1GjYpE7zU2kyzBkfyJO1vDGlyzZX7iqlNvreMqdTfPbIksEr1gL7AIl_EY0GqImNnWkEfqhJX6_EXIQwwfDpG2JX6aDI4sc6wziwk0T2LDWXj_T_UbJgRDm6tiXTxbyqA2HHOtYmubqA"/>
+</div>
+<div class="space-y-1">
+<div class="bg-surface-container-lowest glass-card px-4 py-2.5 rounded-2xl rounded-tl-none shadow-sm text-on-surface space-y-3">
+<p>Yes, they do. The production API keys have been mapped to the new gateway. Here is the config snippet for your local environment:</p>
+<div class="bg-inverse-surface text-on-tertiary-container p-3 rounded-lg font-mono-md text-xs border border-white/10 overflow-x-auto">
+<pre><code>{
+  "api_pulse_version": "v2.4",
+  "endpoint": "https://api.pulse.enterprise",
+  "rate_limit": "1000/min",
+  "auth_strategy": "oauth2_bearer"
+}</code></pre>
+</div>
+</div>
+<span class="text-[10px] text-on-surface-variant/60 ml-1">10:42 AM</span>
+</div>
+</div>
+<div id="new-messages-anchor"></div>
+</div>
+<!-- Message Input Area -->
+<div class="p-4 bg-surface/80 backdrop-blur-lg border-t border-outline-variant/10">
+<div class="max-w-4xl mx-auto glass-card rounded-xl p-2 flex items-end gap-2 shadow-lg transition-all focus-within:ring-2 focus-within:ring-primary/20">
+<div class="flex gap-1 mb-1 px-1">
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-container-low rounded-lg">
+<span class="material-symbols-outlined" data-icon="add_circle">add_circle</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-container-low rounded-lg">
+<span class="material-symbols-outlined" data-icon="image">image</span>
+</button>
+</div>
+<div class="flex-1 min-h-[44px] max-h-32 overflow-y-auto py-2">
+<textarea class="w-full bg-transparent border-none focus:ring-0 text-body-md resize-none py-1 custom-scrollbar leading-relaxed" placeholder="Type a message to Sarah..." rows="1"></textarea>
+</div>
+<div class="flex gap-1 mb-1 px-1">
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-container-low rounded-lg">
+<span class="material-symbols-outlined" data-icon="mood">mood</span>
+</button>
+<button class="w-10 h-10 message-gradient-sent text-white rounded-lg flex items-center justify-center shadow-sm hover:scale-105 active:scale-95 transition-all">
+<span class="material-symbols-outlined" data-icon="send">send</span>
+</button>
+</div>
+</div>
+<div class="max-w-4xl mx-auto mt-2 px-2 flex justify-between items-center">
+<p class="text-[10px] text-on-surface-variant/50 font-medium">Press <kbd class="px-1 border border-outline-variant/20 rounded bg-surface-container-low">Enter</kbd> to send, <kbd class="px-1 border border-outline-variant/20 rounded bg-surface-container-low">Shift+Enter</kbd> for new line</p>
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 bg-secondary rounded-full animate-pulse"></span>
+<span class="text-[10px] text-secondary font-bold">Encrypted End-to-End</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<script>
+        // Simple auto-expand for textarea
+        const textarea = document.querySelector('textarea');
+        textarea.addEventListener('input', () => {
+            textarea.style.height = 'auto';
+            textarea.style.height = textarea.scrollHeight + 'px';
+        });
+
+        // Soft entry animation for messages
+        document.querySelectorAll('.message-received, .message-sent').forEach((el, index) => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(10px)';
+            setTimeout(() => {
+                el.style.transition = 'all 0.3s ease-out';
+                el.style.opacity = '1';
+                el.style.transform = 'translateY(0)';
+            }, 100 * index);
+        });
+    </script>
+</body></html>

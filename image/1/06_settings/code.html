@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=IBM+Plex+Sans:wght@500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid #E2E8F0;
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #e2e3e5;
+            border-radius: 10px;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-dim": "#d8dadc",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "on-primary-container": "#7c839b",
+                        "outline-variant": "#c6c6cd",
+                        "on-background": "#191c1e",
+                        "inverse-surface": "#2d3133",
+                        "on-secondary-fixed": "#001a42",
+                        "surface-container-high": "#e6e8ea",
+                        "inverse-on-surface": "#eff1f3",
+                        "surface-container-low": "#f2f4f6",
+                        "secondary-fixed": "#d8e2ff",
+                        "tertiary-fixed-dim": "#b7c8e1",
+                        "on-tertiary-container": "#75859d",
+                        "surface-container-lowest": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "secondary-container": "#2170e4",
+                        "on-primary": "#ffffff",
+                        "tertiary": "#000000",
+                        "on-surface": "#191c1e",
+                        "secondary": "#0058be",
+                        "on-tertiary-fixed-variant": "#38485d",
+                        "surface-bright": "#f7f9fb",
+                        "on-secondary-container": "#fefcff",
+                        "on-primary-fixed": "#131b2e",
+                        "on-error-container": "#93000a",
+                        "error": "#ba1a1a",
+                        "secondary-fixed-dim": "#adc6ff",
+                        "on-tertiary": "#ffffff",
+                        "surface-variant": "#e0e3e5",
+                        "primary-fixed-dim": "#bec6e0",
+                        "on-secondary-fixed-variant": "#004395",
+                        "tertiary-container": "#0b1c30",
+                        "surface-tint": "#565e74",
+                        "primary-fixed": "#dae2fd",
+                        "tertiary-fixed": "#d3e4fe",
+                        "on-error": "#ffffff",
+                        "primary": "#000000",
+                        "on-secondary": "#ffffff",
+                        "background": "#f7f9fb",
+                        "surface": "#f7f9fb",
+                        "on-surface-variant": "#45464d",
+                        "surface-container": "#eceef0",
+                        "outline": "#76777d",
+                        "primary-container": "#131b2e",
+                        "surface-container-highest": "#e0e3e5",
+                        "inverse-primary": "#bec6e0",
+                        "on-tertiary-fixed": "#0b1c30"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "gutter": "24px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "40px",
+                        "container-max": "1280px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["IBM Plex Sans"],
+                        "display-lg-mobile": ["IBM Plex Sans"],
+                        "body-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-md": ["JetBrains Mono"],
+                        "display-lg": ["IBM Plex Sans"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "500"}],
+                        "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen">
+<!-- TopNavBar -->
+<header class="sticky top-0 z-50 flex items-center justify-between px-margin-desktop h-16 w-full bg-surface/80 dark:bg-surface-container/80 backdrop-blur-lg border-b border-outline-variant/30 shadow-sm">
+<div class="flex items-center gap-4">
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-on-primary-fixed">Brilliaris Sentinel</span>
+</div>
+<div class="flex-1 max-w-md mx-8 hidden md:block">
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-outline">search</span>
+<input class="w-full bg-surface-container-low border border-outline-variant/30 rounded-xl py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-secondary/20 font-body-sm transition-all" placeholder="Search settings..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full hover:bg-surface-container-low transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-secondary-fixed flex items-center justify-center border border-outline-variant/30 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional close-up portrait of a corporate executive with a friendly expression. The lighting is soft and studio-quality, emphasizing a modern light-mode aesthetic with clean lines and a minimalist white background. The subject is wearing a sharp, dark business attire that contrasts with the bright, high-key environment, reflecting an elite tech-finance persona." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1n59ky_9llRZOvw4wXmUQf4LySUsS6oKRNEdXCHO9agM-6PumXtNbs0fghcwYoKhxpKn1YvCM_lKFtDuKI0lOexduYxl2dB5r7gdfYipa5OqoGYSO0SeRe0FvcUATe_x9yTRA-3c8GPS5Kqk5JNjgpvYey0gWvFiXULnRkgiFV0KLLxhN42Eu_WXZmmbuB0iT2U0XFy2Yr3KiTkotefj10_apRFvrfD1t-hMsSgMJovoYizQgPOMYcPvLZAQTG01FOdpBIfF74A"/>
+</div>
+</div>
+</header>
+<div class="flex">
+<!-- SideNavBar (Context Filtered) -->
+<nav class="h-screen w-64 fixed left-0 top-0 flex flex-col gap-unit p-4 bg-surface dark:bg-surface-container-low border-r border-outline-variant/30 pt-20 z-40 hidden md:flex">
+<div class="mb-8 px-2">
+<h2 class="font-headline-md text-headline-md font-bold text-primary">Brilliaris Sentinel</h2>
+<p class="text-on-surface-variant font-label-md text-label-md uppercase tracking-widest opacity-60">Enterprise Security</p>
+</div>
+<div class="space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline font-label-md text-label-md hover:bg-surface-container-highest/50 dark:hover:bg-on-primary-fixed-variant/20 rounded-xl transition-all duration-300" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline font-label-md text-label-md hover:bg-surface-container-highest/50 dark:hover:bg-on-primary-fixed-variant/20 rounded-xl transition-all duration-300" href="#">
+<span class="material-symbols-outlined">folder_shared</span>
+<span>Projects</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline font-label-md text-label-md hover:bg-surface-container-highest/50 dark:hover:bg-on-primary-fixed-variant/20 rounded-xl transition-all duration-300" href="#">
+<span class="material-symbols-outlined">group</span>
+<span>Team</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline font-label-md text-label-md hover:bg-surface-container-highest/50 dark:hover:bg-on-primary-fixed-variant/20 rounded-xl transition-all duration-300" href="#">
+<span class="material-symbols-outlined">mail</span>
+<span>Messages</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-secondary-fixed text-on-secondary-fixed font-bold rounded-xl transition-all duration-300" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span>Settings</span>
+</a>
+</div>
+<div class="mt-auto p-4 bg-surface-container-low rounded-xl border border-outline-variant/20">
+<p class="font-label-md text-label-md text-secondary font-bold mb-1">Sentinel Core v2.4</p>
+<p class="text-[10px] text-on-surface-variant leading-tight">All systems operational. Advanced threat detection enabled.</p>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 md:ml-64 p-margin-desktop bg-background min-h-screen">
+<div class="max-w-container-max mx-auto">
+<header class="mb-10">
+<h1 class="font-display-lg text-display-lg text-primary mb-2">System Settings</h1>
+<p class="text-on-surface-variant font-body-lg text-body-lg">Manage your elite security profile and workspace configurations.</p>
+</header>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Left Column: Navigation Anchors -->
+<aside class="lg:col-span-3 space-y-2">
+<a class="flex items-center justify-between p-4 bg-surface-container-highest rounded-xl text-primary font-bold group border border-outline-variant/30" href="#profile">
+<span class="flex items-center gap-3">
+<span class="material-symbols-outlined">person_outline</span>
+                                Profile
+                            </span>
+<span class="material-symbols-outlined opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>
+</a>
+<a class="flex items-center justify-between p-4 hover:bg-surface-container-low rounded-xl text-on-surface-variant transition-colors group" href="#workspace">
+<span class="flex items-center gap-3">
+<span class="material-symbols-outlined">hub</span>
+                                Workspace
+                            </span>
+<span class="material-symbols-outlined opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>
+</a>
+<a class="flex items-center justify-between p-4 hover:bg-surface-container-low rounded-xl text-on-surface-variant transition-colors group" href="#security">
+<span class="flex items-center gap-3">
+<span class="material-symbols-outlined">security</span>
+                                Security
+                            </span>
+<span class="material-symbols-outlined opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>
+</a>
+</aside>
+<!-- Right Column: Settings Sections -->
+<div class="lg:col-span-9 space-y-12 pb-24">
+<!-- Section: Profile -->
+<section class="glass-card rounded-2xl p-8 space-y-8 shadow-sm" id="profile">
+<div class="flex items-center justify-between border-b border-outline-variant/20 pb-4">
+<h3 class="font-headline-md text-headline-md text-primary">Profile Information</h3>
+<button class="px-4 py-2 bg-primary text-on-primary text-body-sm font-bold rounded-lg hover:opacity-90 active:scale-95 transition-all">Save Changes</button>
+</div>
+<div class="flex flex-col md:flex-row gap-8 items-start">
+<div class="relative group">
+<div class="w-32 h-32 rounded-full border-4 border-surface overflow-hidden bg-surface-dim shadow-inner">
+<img class="w-full h-full object-cover" data-alt="A professional close-up portrait of a corporate executive with a friendly expression. The lighting is soft and studio-quality, emphasizing a modern light-mode aesthetic with clean lines and a minimalist white background. The subject is wearing a sharp, dark business attire that contrasts with the bright, high-key environment, reflecting an elite tech-finance persona." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB41LW8_3ElAXHvRDIuZfCBoHk7I9VLSutTpPiaRsKj9AAJp909WM7V2PUwAcF6pEX9KGj43d_R7KmGmuwk9AsZZZu_yn_-3H9yk51HtohKy0lZ0M265RYQGKNG_-K4szuvgNQOXgeQtOTFR-IYEuKhMj6SHaAsQEmn9_E-oVMXTBdU2zARrMfnwrkJXKfYbZHj-Jmq3wB8H1psf4slOMacvfiISWVoCG9dN0pnMrYC9l1vuQH78qDo2_HJPPXdQQ94S4_JlMOj0g"/>
+</div>
+<button class="absolute bottom-0 right-0 p-2 bg-secondary text-on-secondary rounded-full border-2 border-surface hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[20px]">photo_camera</span>
+</button>
+</div>
+<div class="flex-1 w-full grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="font-label-md text-label-md text-outline uppercase">Full Name</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg p-3 font-body-md focus:border-secondary focus:ring-1 focus:ring-secondary/30 outline-none transition-all" type="text" value="Alexander Sterling"/>
+</div>
+<div class="space-y-2">
+<label class="font-label-md text-label-md text-outline uppercase">Email Address</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg p-3 font-body-md focus:border-secondary focus:ring-1 focus:ring-secondary/30 outline-none transition-all" type="email" value="a.sterling@brilliaris.io"/>
+</div>
+<div class="md:col-span-2 space-y-2">
+<label class="font-label-md text-label-md text-outline uppercase">Professional Bio</label>
+<textarea class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg p-3 font-body-md focus:border-secondary focus:ring-1 focus:ring-secondary/30 outline-none transition-all" rows="3">Chief Security Architect at Brilliaris Sentinel. Focused on enterprise-grade infrastructure and automated threat mitigation.</textarea>
+</div>
+</div>
+</div>
+</section>
+<!-- Section: Workspace -->
+<section class="glass-card rounded-2xl p-8 space-y-8 shadow-sm" id="workspace">
+<div class="flex items-center justify-between border-b border-outline-variant/20 pb-4">
+<h3 class="font-headline-md text-headline-md text-primary">Workspace Settings</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="space-y-2">
+<label class="font-label-md text-label-md text-outline uppercase">Brand Name</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg p-3 font-body-md focus:border-secondary focus:ring-1 focus:ring-secondary/30 outline-none transition-all" type="text" value="Brilliaris Global"/>
+<p class="text-[11px] text-on-surface-variant italic">This appears in all external communications and logs.</p>
+</div>
+<div class="space-y-2">
+<label class="font-label-md text-label-md text-outline uppercase">Workspace Domain</label>
+<div class="flex items-center bg-surface-container-lowest border border-outline-variant rounded-lg focus-within:border-secondary transition-all">
+<span class="pl-3 text-outline font-label-md">https://</span>
+<input class="flex-1 p-3 font-body-md bg-transparent outline-none" type="text" value="sentinel.brilliaris"/>
+<span class="pr-3 text-outline font-label-md">.io</span>
+</div>
+</div>
+</div>
+<div class="p-6 bg-surface-container-low rounded-xl border border-outline-variant/30 flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="p-3 bg-secondary-fixed rounded-lg text-secondary">
+<span class="material-symbols-outlined">data_usage</span>
+</div>
+<div>
+<h4 class="font-body-md font-bold text-primary">Data Residency</h4>
+<p class="text-body-sm text-on-surface-variant">Primary Server: Frankfurt (EU-Central-1)</p>
+</div>
+</div>
+<button class="px-4 py-2 border border-secondary text-secondary text-body-sm font-bold rounded-lg hover:bg-secondary/5 transition-colors">Manage Regions</button>
+</div>
+</section>
+<!-- Section: Security -->
+<section class="glass-card rounded-2xl p-8 space-y-8 shadow-sm" id="security">
+<div class="flex items-center justify-between border-b border-outline-variant/20 pb-4">
+<h3 class="font-headline-md text-headline-md text-primary">Security &amp; Access</h3>
+</div>
+<!-- MFA Card -->
+<div class="flex items-start justify-between p-6 bg-surface-container-lowest border border-outline-variant/20 rounded-xl">
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-secondary text-[32px]">phonelink_lock</span>
+<div class="space-y-1">
+<h4 class="font-body-md font-bold text-primary">Multi-Factor Authentication (MFA)</h4>
+<p class="text-body-sm text-on-surface-variant max-w-md">Add an extra layer of security to your account. Currently enabled via Authenticator App.</p>
+<div class="mt-2 inline-flex items-center px-2 py-1 bg-green-100 text-green-700 text-[10px] font-bold rounded uppercase tracking-wider">Active</div>
+</div>
+</div>
+<button class="text-secondary font-bold text-body-sm hover:underline">Re-configure</button>
+</div>
+<!-- API Keys -->
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<h4 class="font-body-md font-bold text-primary">API Access Keys</h4>
+<button class="flex items-center gap-2 text-secondary font-bold text-body-sm">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+                                        Generate New Key
+                                    </button>
+</div>
+<div class="overflow-hidden border border-outline-variant/20 rounded-xl">
+<table class="w-full text-left bg-surface-container-lowest">
+<thead class="bg-surface-container-low border-b border-outline-variant/20">
+<tr>
+<th class="px-6 py-4 font-label-md text-label-md text-outline uppercase">Key Name</th>
+<th class="px-6 py-4 font-label-md text-label-md text-outline uppercase">Last Used</th>
+<th class="px-6 py-4 font-label-md text-label-md text-outline uppercase">Status</th>
+<th class="px-6 py-4 text-right"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10">
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-4">
+<div class="font-label-md text-primary">PROD_SENTINEL_ALPHA</div>
+<div class="text-[10px] font-label-md text-outline">Created Jan 12, 2024</div>
+</td>
+<td class="px-6 py-4 font-label-md text-label-md text-on-surface-variant">2 hours ago</td>
+<td class="px-6 py-4">
+<span class="inline-flex h-2 w-2 rounded-full bg-secondary mr-2"></span>
+<span class="text-body-sm font-medium">Active</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="p-2 text-outline hover:text-error transition-colors">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-4">
+<div class="font-label-md text-primary">STAGING_SENTINEL_BETA</div>
+<div class="text-[10px] font-label-md text-outline">Created Feb 01, 2024</div>
+</td>
+<td class="px-6 py-4 font-label-md text-label-md text-on-surface-variant">Never</td>
+<td class="px-6 py-4">
+<span class="inline-flex h-2 w-2 rounded-full bg-outline-variant mr-2"></span>
+<span class="text-body-sm font-medium">Idle</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="p-2 text-outline hover:text-error transition-colors">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<!-- Danger Zone -->
+<section class="p-8 rounded-2xl border-2 border-error/20 bg-error-container/10 space-y-6">
+<div class="flex items-center gap-3 text-error">
+<span class="material-symbols-outlined">warning</span>
+<h3 class="font-headline-md text-headline-md font-bold">Danger Zone</h3>
+</div>
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div>
+<h4 class="font-body-md font-bold text-primary">Deactivate Workspace</h4>
+<p class="text-body-sm text-on-surface-variant max-w-lg">Permanently delete all workspace data, logs, and security protocols. This action cannot be undone.</p>
+</div>
+<button class="px-6 py-3 bg-error text-on-error font-bold rounded-xl hover:opacity-90 active:scale-95 transition-all">Terminate Workspace</button>
+</div>
+</section>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Mobile Navigation (BottomNavBar) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full bg-surface-container-lowest border-t border-outline-variant/30 flex items-center justify-around py-3 px-2 z-50">
+<button class="flex flex-col items-center gap-1 text-outline">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-[10px] font-bold">Dashboard</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-outline">
+<span class="material-symbols-outlined">folder_shared</span>
+<span class="text-[10px] font-bold">Projects</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-outline">
+<span class="material-symbols-outlined">group</span>
+<span class="text-[10px] font-bold">Team</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-secondary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">settings</span>
+<span class="text-[10px] font-bold">Settings</span>
+</button>
+</nav>
+<script>
+        // Micro-interactions for smooth navigation
+        document.querySelectorAll('aside a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    // Update active styles
+                    document.querySelectorAll('aside a').forEach(a => {
+                        a.classList.remove('bg-surface-container-highest', 'text-primary', 'font-bold', 'border', 'border-outline-variant/30');
+                        a.classList.add('hover:bg-surface-container-low', 'text-on-surface-variant');
+                    });
+                    
+                    this.classList.remove('hover:bg-surface-container-low', 'text-on-surface-variant');
+                    this.classList.add('bg-surface-container-highest', 'text-primary', 'font-bold', 'border', 'border-outline-variant/30');
+                    
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Simple visibility observer for active state on scroll
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('aside a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 150) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('bg-surface-container-highest', 'text-primary', 'font-bold', 'border', 'border-outline-variant/30');
+                link.classList.add('hover:bg-surface-container-low', 'text-on-surface-variant');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.remove('hover:bg-surface-container-low', 'text-on-surface-variant');
+                    link.classList.add('bg-surface-container-highest', 'text-primary', 'font-bold', 'border', 'border-outline-variant/30');
+                }
+            });
+        });
+    </script>
+</body></html>

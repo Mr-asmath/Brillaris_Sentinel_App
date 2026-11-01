@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>SENTINEL | Team Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Geist:wght@400;600;700;800&family=JetBrains+Mono:wght@500&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Inter:wght@100..900&family=JetBrains+Mono:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed": "#6ffbbe",
+                    "surface-container-high": "#222a3d",
+                    "on-surface": "#dae2fd",
+                    "tertiary-container": "#a06500",
+                    "secondary-container": "#00a572",
+                    "background": "#0b1326",
+                    "on-tertiary-fixed": "#2a1700",
+                    "surface-dim": "#0b1326",
+                    "on-error-container": "#ffdad6",
+                    "secondary": "#4edea3",
+                    "inverse-primary": "#0054d6",
+                    "surface-tint": "#b3c5ff",
+                    "on-tertiary": "#472a00",
+                    "on-secondary-fixed-variant": "#005236",
+                    "on-secondary-container": "#00311f",
+                    "on-secondary": "#003824",
+                    "on-primary-fixed": "#001849",
+                    "on-background": "#dae2fd",
+                    "surface-container-lowest": "#060e20",
+                    "on-surface-variant": "#c2c6d8",
+                    "surface-variant": "#2d3449",
+                    "surface-bright": "#31394d",
+                    "surface-container-highest": "#2d3449",
+                    "tertiary-fixed": "#ffddb8",
+                    "on-secondary-fixed": "#002113",
+                    "error": "#ffb4ab",
+                    "on-error": "#690005",
+                    "outline-variant": "#424656",
+                    "inverse-surface": "#dae2fd",
+                    "secondary-fixed-dim": "#4edea3",
+                    "on-primary-container": "#f8f7ff",
+                    "on-primary": "#002b75",
+                    "tertiary-fixed-dim": "#ffb95f",
+                    "surface-container": "#171f33",
+                    "surface-container-low": "#131b2e",
+                    "primary-container": "#0066ff",
+                    "on-primary-fixed-variant": "#003fa4",
+                    "on-tertiary-fixed-variant": "#653e00",
+                    "tertiary": "#ffb95f",
+                    "error-container": "#93000a",
+                    "primary-fixed": "#dae1ff",
+                    "on-tertiary-container": "#fff7f1",
+                    "outline": "#8c90a1",
+                    "inverse-on-surface": "#283044",
+                    "primary-fixed-dim": "#b3c5ff",
+                    "surface": "#0b1326",
+                    "primary": "#b3c5ff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "touch-target-min": "44px",
+                    "gutter-grid": "1rem",
+                    "margin-main": "1.25rem",
+                    "stack-gap": "0.75rem",
+                    "container-padding": "1rem"
+            },
+            "fontFamily": {
+                    "headline-md": ["Geist"],
+                    "label-md": ["JetBrains Mono"],
+                    "headline-lg": ["Geist"],
+                    "body-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "label-sm": ["JetBrains Mono"]
+            },
+            "fontSize": {
+                    "headline-md": ["22px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "label-md": ["13px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "headline-lg": ["28px", {"lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["17px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-md": ["15px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "label-sm": ["11px", {"lineHeight": "14px", "letterSpacing": "0.03em", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #0b1326;
+            color: #dae2fd;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .glass-panel {
+            background: rgba(23, 31, 51, 0.7);
+            backdrop-filter: blur(20px);
+            border: 0.5px solid rgba(255, 255, 255, 0.05);
+        }
+        .status-pulse {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(0.95); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.5; }
+            100% { transform: scale(0.95); opacity: 1; }
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md text-on-surface select-none overflow-x-hidden">
+<!-- Top App Bar -->
+<header class="bg-surface dark:bg-surface-dim flex justify-between items-center h-16 px-margin-main w-full z-50 top-0 sticky">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed-dim">security</span>
+<h1 class="font-headline-md text-headline-md font-bold tracking-tighter text-primary dark:text-primary-fixed-dim">SENTINEL</h1>
+</div>
+<button class="w-touch-target-min h-touch-target-min flex items-center justify-center hover:opacity-80 transition-opacity active:scale-95 duration-100 text-on-surface-variant">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</header>
+<main class="pb-32 px-margin-main pt-6 max-w-lg mx-auto">
+<!-- Search & Actions -->
+<section class="mb-8">
+<div class="flex items-center justify-between mb-6">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-1">Personnel</h2>
+<p class="font-label-md text-label-md text-outline">AUTHORIZATION LEVEL 4</p>
+</div>
+<button class="bg-primary-container text-on-primary-container px-4 h-12 rounded-xl flex items-center gap-2 font-body-md font-semibold shadow-lg shadow-primary/10 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[20px]">person_add</span>
+                    Invite Member
+                </button>
+</div>
+<div class="relative group">
+<div class="absolute inset-y-0 left-4 flex items-center pointer-events-none text-outline group-focus-within:text-primary transition-colors">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="w-full bg-surface-container-low border-none rounded-xl h-14 pl-12 pr-4 text-body-md focus:ring-2 focus:ring-primary/30 transition-all placeholder:text-outline/60" placeholder="Search team members..." type="text"/>
+</div>
+</section>
+<!-- Team Stats Bento Area -->
+<div class="grid grid-cols-2 gap-3 mb-8">
+<div class="glass-panel p-4 rounded-xl">
+<p class="font-label-sm text-label-sm text-outline mb-1 uppercase tracking-wider">Operational</p>
+<div class="flex items-baseline gap-2">
+<span class="font-headline-md text-headline-md text-secondary">24</span>
+<span class="font-label-sm text-label-sm text-secondary/60">Active</span>
+</div>
+</div>
+<div class="glass-panel p-4 rounded-xl">
+<p class="font-label-sm text-label-sm text-outline mb-1 uppercase tracking-wider">Node Status</p>
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-secondary status-pulse"></div>
+<span class="font-body-md text-body-md text-on-surface">NOMINAL</span>
+</div>
+</div>
+</div>
+<!-- Directory List -->
+<section class="space-y-3">
+<p class="font-label-md text-label-md text-outline uppercase tracking-[0.1em] mb-4">Core Personnel</p>
+<!-- Elias Vance -->
+<div class="glass-panel p-4 rounded-xl flex items-center justify-between group active:bg-surface-variant/20 transition-colors">
+<div class="flex items-center gap-4">
+<div class="relative">
+<div class="w-14 h-14 rounded-full overflow-hidden bg-surface-container-highest ring-2 ring-outline-variant/30">
+<img class="w-full h-full object-cover" data-alt="A cinematic, high-fidelity headshot of Elias Vance, a middle-aged security specialist with a stern expression and sharp features. He has short salt-and-pepper hair and is wearing a dark, technical command center uniform with subtle glowing blue accents. The lighting is low-key with a sharp rim light against a dark, tech-filled background, maintaining a corporate and authoritative aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDl8R-PXzeBrQs7ll9-S3CeFGQrFeZ_XbRI3I24AYei6z5Xey2iWbbomkhS6ewZEJccGY0O2-EqrSqZE-xpzLURUZDAaSCOFF7g6Xd1LUha_c3frwe4ffnQT3h9AKwyDWCOJDW5ucH43u2vGC68_pCCMkIZUFQ4fGkAKGwton6iK5Ikdw7CdKHXOgXQQa06RVcOlj-8iJ7NUCkSfLMR1yBKWMcITno1bvGNHLR1akD3RY9_aI-uX7y2pFn_qiPwQq4o8LtpLMvo4A"/>
+</div>
+<div class="absolute bottom-0 right-0 w-4 h-4 bg-secondary border-4 border-surface-container rounded-full"></div>
+</div>
+<div>
+<h3 class="font-body-lg text-body-lg font-semibold text-on-surface">Elias Vance</h3>
+<div class="flex items-center gap-2 mt-0.5">
+<span class="font-label-sm text-label-sm px-2 py-0.5 bg-primary-container/20 text-primary-fixed-dim rounded-full uppercase">Admin</span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span class="font-label-sm text-label-sm text-outline">Lead Architect</span>
+</div>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">chevron_right</span>
+</div>
+<!-- Sarah Chen -->
+<div class="glass-panel p-4 rounded-xl flex items-center justify-between group active:bg-surface-variant/20 transition-colors">
+<div class="flex items-center gap-4">
+<div class="relative">
+<div class="w-14 h-14 rounded-full overflow-hidden bg-surface-container-highest ring-2 ring-outline-variant/30">
+<img class="w-full h-full object-cover" data-alt="Professional studio portrait of Sarah Chen, a brilliant software engineer in her late 20s. She has a focused gaze and dark hair tied back. The lighting is crisp and cool-toned, reflecting a high-tech laboratory environment. She wears a minimalist grey tactical vest over a dark shirt. The overall mood is vigilant and precise, consistent with a high-stakes security firm aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuArx-6ObK0E3j0FQbdDuWrUvarbrD3Lnvnz6o3e6KujZ97X942g83pi4_2f2suNgirt9n3HhYneqR5ptFjcVA5P_isL6IG4_48X7sSMeezmT7TeQcePWhyWrOI8roHKM4IG9X920J_OIRz-fqIRRraEgiLXCbYgilgQm9HpaGqZNupQ8Ch5pB6sJbNFYof9re-5F_MRvieVJJnuhV50a2B1fIJhoLzJYj0sklz4tNeIhm2JOhUT_MqHaqvx1wtZ2srGEa9Mrv6jdg"/>
+</div>
+<div class="absolute bottom-0 right-0 w-4 h-4 bg-secondary border-4 border-surface-container rounded-full"></div>
+</div>
+<div>
+<h3 class="font-body-lg text-body-lg font-semibold text-on-surface">Sarah Chen</h3>
+<div class="flex items-center gap-2 mt-0.5">
+<span class="font-label-sm text-label-sm px-2 py-0.5 bg-secondary-container/20 text-secondary rounded-full uppercase">DevOps</span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span class="font-label-sm text-label-sm text-outline">System Logic</span>
+</div>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">chevron_right</span>
+</div>
+<!-- Marcus Thorne -->
+<div class="glass-panel p-4 rounded-xl flex items-center justify-between group active:bg-surface-variant/20 transition-colors">
+<div class="flex items-center gap-4">
+<div class="relative">
+<div class="w-14 h-14 rounded-full overflow-hidden bg-surface-container-highest ring-2 ring-outline-variant/30 opacity-60 grayscale">
+<img class="w-full h-full object-cover" data-alt="Detailed portrait of Marcus Thorne, a veteran security operative with a rugged appearance. He has a short beard and intense dark eyes. He is wearing specialized tactical gear including a high-collar jacket with data-link interfaces. The lighting is dramatic and moody, casting deep shadows that align with a dark-mode enterprise security platform. The background is a blurred high-tech server room." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEv3Mk_3zhkIZptu001xWfDBMacMkeuNtjEpKRXv-XmN5dNM54tUsp5-oM9JGRBrXkxb6-oOkAt67H1yrhyrUGUDPBqYtCsn7kRptuv-_G-Eo85jPaCNMUm90g-SlVnx4PUguC-6wxaknByeg-Fr7tJDighzQtJnmwkuUZlUhW98Knh3snsa0Yw1H_JZ7UJuD3JbC-g60fewFxY-zcH65nQkQLb2mZgwxNzYnVFcuEbSvFhJAL1il5KP8YXgVkjflDjY9ZsBdW4A"/>
+</div>
+<div class="absolute bottom-0 right-0 w-4 h-4 bg-outline-variant border-4 border-surface-container rounded-full"></div>
+</div>
+<div>
+<h3 class="font-body-lg text-body-lg font-semibold text-on-surface/60">Marcus Thorne</h3>
+<div class="flex items-center gap-2 mt-0.5">
+<span class="font-label-sm text-label-sm px-2 py-0.5 bg-outline-variant/20 text-outline rounded-full uppercase">Security</span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span class="font-label-sm text-label-sm text-outline">Offline • 2h ago</span>
+</div>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline/30 group-hover:text-primary transition-colors">chevron_right</span>
+</div>
+<!-- More Personnel -->
+<button class="w-full h-14 rounded-xl border border-dashed border-outline-variant/40 flex items-center justify-center gap-2 font-label-md text-label-md text-outline hover:bg-surface-variant/10 transition-colors">
+<span class="material-symbols-outlined">expand_more</span>
+                Show 12 More Members
+            </button>
+</section>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full h-16 flex justify-around items-center px-gutter-grid pb-safe bg-surface-container-low dark:bg-surface-container-low shadow-lg dark:shadow-none z-50 rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-variant/20 transition-all active:scale-90 duration-200 h-full w-full" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-variant/20 transition-all active:scale-90 duration-200 h-full w-full" href="#">
+<span class="material-symbols-outlined">assignment</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed-dim relative after:content-[''] after:absolute after:-top-2 after:w-1 after:h-1 after:bg-secondary after:rounded-full h-full w-full" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">group</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-variant/20 transition-all active:scale-90 duration-200 h-full w-full" href="#">
+<span class="material-symbols-outlined">chat_bubble</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-variant/20 transition-all active:scale-90 duration-200 h-full w-full" href="#">
+<span class="material-symbols-outlined">settings</span>
+</a>
+</nav>
+<script>
+        // Simple search filter interaction
+        const searchInput = document.querySelector('input[type="text"]');
+        const teamCards = document.querySelectorAll('section.space-y-3 > .glass-panel');
+
+        searchInput.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            teamCards.forEach(card => {
+                const name = card.querySelector('h3').textContent.toLowerCase();
+                const role = card.querySelector('.font-label-sm').textContent.toLowerCase();
+                if (name.includes(term) || role.includes(term)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+
+        // Micro-interaction for cards
+        teamCards.forEach(card => {
+            card.addEventListener('touchstart', () => {
+                card.style.transform = 'scale(0.98)';
+                card.style.transition = 'transform 0.1s ease';
+            });
+            card.addEventListener('touchend', () => {
+                card.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body></html>

@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>SENTINEL | Messages</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@500&amp;family=Geist:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed": "#6ffbbe",
+                        "surface-container-high": "#222a3d",
+                        "on-surface": "#dae2fd",
+                        "tertiary-container": "#a06500",
+                        "secondary-container": "#00a572",
+                        "background": "#0b1326",
+                        "on-tertiary-fixed": "#2a1700",
+                        "surface-dim": "#0b1326",
+                        "on-error-container": "#ffdad6",
+                        "secondary": "#4edea3",
+                        "inverse-primary": "#0054d6",
+                        "surface-tint": "#b3c5ff",
+                        "on-tertiary": "#472a00",
+                        "on-secondary-fixed-variant": "#005236",
+                        "on-secondary-container": "#00311f",
+                        "on-secondary": "#003824",
+                        "on-primary-fixed": "#001849",
+                        "on-background": "#dae2fd",
+                        "surface-container-lowest": "#060e20",
+                        "on-surface-variant": "#c2c6d8",
+                        "surface-variant": "#2d3449",
+                        "surface-bright": "#31394d",
+                        "surface-container-highest": "#2d3449",
+                        "tertiary-fixed": "#ffddb8",
+                        "on-secondary-fixed": "#002113",
+                        "error": "#ffb4ab",
+                        "on-error": "#690005",
+                        "outline-variant": "#424656",
+                        "inverse-surface": "#dae2fd",
+                        "secondary-fixed-dim": "#4edea3",
+                        "on-primary-container": "#f8f7ff",
+                        "on-primary": "#002b75",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "surface-container": "#171f33",
+                        "surface-container-low": "#131b2e",
+                        "primary-container": "#0066ff",
+                        "on-primary-fixed-variant": "#003fa4",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "tertiary": "#ffb95f",
+                        "error-container": "#93000a",
+                        "primary-fixed": "#dae1ff",
+                        "on-tertiary-container": "#fff7f1",
+                        "outline": "#8c90a1",
+                        "inverse-on-surface": "#283044",
+                        "primary-fixed-dim": "#b3c5ff",
+                        "surface": "#0b1326",
+                        "primary": "#b3c5ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "touch-target-min": "44px",
+                        "gutter-grid": "1rem",
+                        "margin-main": "1.25rem",
+                        "stack-gap": "0.75rem",
+                        "container-padding": "1rem"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Geist"],
+                        "label-md": ["JetBrains Mono"],
+                        "headline-lg": ["Geist"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-sm": ["JetBrains Mono"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["22px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "label-md": ["13px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "headline-lg": ["28px", {"lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-lg": ["17px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-md": ["15px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-sm": ["11px", {"lineHeight": "14px", "letterSpacing": "0.03em", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #0b1326;
+            color: #dae2fd;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .message-row:active {
+            background-color: rgba(45, 52, 73, 0.5);
+        }
+        .safe-bottom {
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+        .glass-header {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            background-color: rgba(11, 19, 38, 0.85);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="flex flex-col min-h-screen font-body-md overflow-x-hidden">
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky bg-surface dark:bg-surface-dim z-50 glass-header">
+<div class="flex justify-between items-center h-16 px-margin-main w-full">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed-dim">security</span>
+<h1 class="font-headline-md text-headline-md font-bold tracking-tighter text-primary dark:text-primary-fixed-dim">SENTINEL</h1>
+</div>
+<div class="flex items-center gap-4">
+<button class="hover:opacity-80 transition-opacity active:scale-95 duration-100 p-2">
+<span class="material-symbols-outlined text-on-surface">search</span>
+</button>
+<button class="hover:opacity-80 transition-opacity active:scale-95 duration-100 p-2 relative">
+<span class="material-symbols-outlined text-on-surface">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-secondary rounded-full"></span>
+</button>
+</div>
+</div>
+</header>
+<main class="flex-1 px-margin-main py-4 space-y-6">
+<!-- Section Header -->
+<div class="flex justify-between items-end">
+<div>
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-widest">Secure Communications</span>
+<h2 class="font-headline-lg text-headline-lg mt-1">Messages</h2>
+</div>
+<button class="bg-primary-container text-on-primary-container rounded-xl px-4 py-2 flex items-center gap-2 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[20px]">edit_square</span>
+<span class="font-label-md text-label-md">NEW</span>
+</button>
+</div>
+<!-- Segmented Control -->
+<div class="flex p-1 bg-surface-container-high rounded-xl">
+<button class="flex-1 py-2 text-center font-label-md text-label-md rounded-lg bg-surface-variant text-on-primary-container shadow-sm">Active</button>
+<button class="flex-1 py-2 text-center font-label-md text-label-md text-on-surface-variant">Archived</button>
+<button class="flex-1 py-2 text-center font-label-md text-label-md text-on-surface-variant">System</button>
+</div>
+<!-- Conversation List -->
+<div class="space-y-2">
+<!-- Conversation: Core Developers -->
+<div class="message-row flex items-center p-4 bg-surface-container-low rounded-xl border border-outline-variant/10 transition-colors cursor-pointer">
+<div class="relative w-14 h-14 flex-shrink-0">
+<div class="w-full h-full rounded-full border-2 border-primary/20 bg-surface-variant flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A group avatar for a technical development team, featuring minimalist geometric code symbols and circuit patterns. The style is high-fidelity corporate tech with a color palette of deep blues and vibrant electric green accents. The lighting is digital and clean, suggesting a professional software engineering environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBURVfGioGQDvLo66kzmiznt4j0BTmX4S42DDoRACo4lK93v1TPq8banks1lAI5h79tPFY9knUmoAQ-nlAo_ItUVXFIegXU5MufDSR1v2YmcggMOJlGwOQR4aBheAdQr1RjrPHiRUXLMitl1bZs5XTlglcxq772Z5IH2x93w3MFd52wQBSYyzYvsphNLwyGT9v5kv54emFrj0-Q3bA4_FDtYT2x9muEjx9nDXnfIw5UEfAZXdwTz2lotRtPkckYqOvywWi4lD9ofA"/>
+</div>
+<div class="absolute bottom-0 right-0 w-4 h-4 bg-secondary border-2 border-surface-container-low rounded-full"></div>
+</div>
+<div class="ml-4 flex-1 min-w-0">
+<div class="flex justify-between items-baseline">
+<h3 class="font-body-lg text-on-surface font-semibold truncate">Core Developers</h3>
+<span class="font-label-sm text-label-sm text-on-surface-variant">14:22</span>
+</div>
+<div class="flex justify-between items-center mt-1">
+<p class="font-body-md text-on-surface-variant truncate pr-4">Alex: Deployment of the v2.4 patch is complete across all nodes...</p>
+<div class="bg-secondary text-on-secondary-fixed font-label-sm text-label-sm min-w-[20px] h-5 flex items-center justify-center rounded-full px-1.5">3</div>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant ml-2">chevron_right</span>
+</div>
+<!-- Conversation: Sarah Jenkins -->
+<div class="message-row flex items-center p-4 bg-surface-container-low rounded-xl border border-outline-variant/10 transition-colors cursor-pointer">
+<div class="relative w-14 h-14 flex-shrink-0">
+<div class="w-full h-full rounded-full border-2 border-secondary/20 bg-surface-variant flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a female security executive named Sarah Jenkins. She has a sharp, confident expression and is set against a blurred high-tech command center background. The aesthetic is Corporate Modern with tonal minimalism, featuring soft lighting and a palette of charcoal, silver, and muted teal." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvOhsjrpKPDF1o8wVIzRiclJT175nh4itJAXLItCXkpbErzqZ63D_50_WptGvGSOUOjIXAJJhWpud9p6i2UDJtM6bq93gMeH3_dBUxBQVRx9VMw4-pu3kYASvEqt_KFPUUsfCTpq1O-roV4FSsoKZ_z62C0ARHemPCCXnoegRevfTlelCzP9lQobxgow91NzFfSTT4rO207op60wXd1byCoHolT2wXdgN33aKIecV7PUZNNYZZIXLq3rjgwUdi3DaKD1DcuNH8Rw"/>
+</div>
+</div>
+<div class="ml-4 flex-1 min-w-0">
+<div class="flex justify-between items-baseline">
+<h3 class="font-body-lg text-on-surface font-semibold truncate">Sarah Jenkins</h3>
+<span class="font-label-sm text-label-sm text-on-surface-variant">12:05</span>
+</div>
+<div class="flex justify-between items-center mt-1">
+<p class="font-body-md text-on-surface font-medium truncate pr-4 text-primary">Please review the Q3 firewall audit logs by EOD.</p>
+<div class="bg-secondary text-on-secondary-fixed font-label-sm text-label-sm min-w-[20px] h-5 flex items-center justify-center rounded-full px-1.5">1</div>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant ml-2">chevron_right</span>
+</div>
+<!-- Conversation: Human Resources -->
+<div class="message-row flex items-center p-4 bg-surface-container-low rounded-xl border border-outline-variant/10 transition-colors cursor-pointer">
+<div class="relative w-14 h-14 flex-shrink-0">
+<div class="w-full h-full rounded-full border-2 border-outline/20 bg-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant text-3xl">corporate_fare</span>
+</div>
+</div>
+<div class="ml-4 flex-1 min-w-0">
+<div class="flex justify-between items-baseline">
+<h3 class="font-body-lg text-on-surface font-semibold truncate">Human Resources</h3>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Yesterday</span>
+</div>
+<div class="flex justify-between items-center mt-1">
+<p class="font-body-md text-on-surface-variant truncate pr-4">Your annual security certification is due in 5 days.</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant ml-2">chevron_right</span>
+</div>
+<!-- Conversation: Mark Thompson -->
+<div class="message-row flex items-center p-4 bg-surface-container-low rounded-xl border border-outline-variant/10 transition-colors cursor-pointer">
+<div class="relative w-14 h-14 flex-shrink-0">
+<div class="w-full h-full rounded-full border-2 border-outline/20 bg-surface-variant flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A portrait of a male data analyst in a dark environment with light reflecting from multiple computer monitors on his face. The style is moody and cinematic, emphasizing vigilance and expertise. The color scheme focuses on deep shadows with bright white and neon blue highlights, aligning with a corporate security brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZwVi-tMvHe0jiQ9xvf2gh3rOcWt0QDKVOALeaAySUvhbNirgSCTsnILs-o55reocjEEZucgLFJT-4VFc3aUQcE6VIuuiD6g0JiywFSa9HnYTQ7NH8cepUih3bwMKh50WGRoyh29z_zrQ2cJ_T9n5nEoWgwsYASo8FIsKfbz_yC48SK90KB2WZd3SC1ZhS1W878BcxFSYOjmRV4zuKKwHks2kFbk1Zhc-1i0VJFTQFqyLy_mxA5SKxCQh-39F_IdrvU-sQ63zzEw"/>
+</div>
+</div>
+<div class="ml-4 flex-1 min-w-0">
+<div class="flex justify-between items-baseline">
+<h3 class="font-body-lg text-on-surface font-semibold truncate">Mark Thompson</h3>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Yesterday</span>
+</div>
+<div class="flex justify-between items-center mt-1">
+<p class="font-body-md text-on-surface-variant truncate pr-4">The anomaly in the South Sector was a false positive.</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant ml-2">chevron_right</span>
+</div>
+</div>
+<!-- Pinned / Priority Card -->
+<div class="relative overflow-hidden p-5 rounded-2xl bg-surface-container-highest border border-primary/20 mt-4">
+
+<div class="relative z-10">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-secondary text-sm" style="font-variation-settings: 'FILL' 1;">emergency_home</span>
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-tighter">Emergency Channel</span>
+</div>
+<h4 class="font-body-lg text-on-surface font-bold">Sentinel Protocol Alpha</h4>
+<p class="font-body-md text-on-surface-variant mt-1">Standby for prioritized encrypted broadcast regarding the upcoming hardware migration.</p>
+</div>
+</div>
+<div class="h-20"></div> <!-- Bottom spacing -->
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full h-16 flex justify-around items-center px-gutter-grid pb-safe bg-surface-container-low dark:bg-surface-container-low border-t border-outline-variant/10 shadow-lg dark:shadow-none z-50 rounded-t-xl">
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-variant/20 active:scale-90 transition-transform duration-200 h-full w-full">
+<span class="material-symbols-outlined">dashboard</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-variant/20 active:scale-90 transition-transform duration-200 h-full w-full">
+<span class="material-symbols-outlined">assignment</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-variant/20 active:scale-90 transition-transform duration-200 h-full w-full">
+<span class="material-symbols-outlined">group</span>
+</button>
+<button class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed-dim relative after:content-[''] after:absolute after:-top-2 after:w-1 after:h-1 after:bg-secondary after:rounded-full h-full w-full">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">chat_bubble</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-variant/20 active:scale-90 transition-transform duration-200 h-full w-full">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</nav>
+<script>
+        // Micro-interactions for list items
+        document.querySelectorAll('.message-row').forEach(item => {
+            item.addEventListener('touchstart', () => {
+                item.style.transform = 'scale(0.98)';
+            });
+            item.addEventListener('touchend', () => {
+                item.style.transform = 'scale(1)';
+            });
+            item.addEventListener('mousedown', () => {
+                item.style.transform = 'scale(0.98)';
+            });
+            item.addEventListener('mouseup', () => {
+                item.style.transform = 'scale(1)';
+            });
+        });
+
+        // Simple pull-to-refresh haptic simulation logic can be added here
+    </script>
+</body></html>
